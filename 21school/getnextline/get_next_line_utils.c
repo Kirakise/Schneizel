@@ -1,0 +1,101 @@
+#include "get_next_line.h"
+
+
+t_list *get_list(t_list *lst, int fd)
+{
+	t_list *tmp = lst;
+
+	while (tmp->next)
+	{
+		if (tmp->fd == fd)
+			return (tmp);
+		tmp = tmp->next;
+	}
+	if (tmp->fd == fd)
+		return (tmp);
+	tmp->next = malloc(sizeof(struct list));
+	tmp = tmp->next;
+	tmp->fd = fd;
+	tmp->i = 0;
+	return (tmp);
+}
+
+int checkret(int n, char *s)
+{
+	int i = 0;
+
+	while (*s++)
+		i++;
+	if (n < 0)
+		return (-1);
+	if ((i == 0 || s == 0) && n == 0)
+		return (0);
+	else
+		return (1);
+}
+
+int ft_realloc(char **s)
+{
+	char *new;
+	int	i;
+	char *tmp;
+
+	tmp = *s;
+	if (*s == NULL)
+	{
+		*s = malloc(BUFFER_SIZE);
+		return (1);
+	}
+	new = malloc(sizeof(*s) + BUFFER_SIZE);
+	i = 0;
+	while ((*s)[i])
+	{
+		new[i] = (*s)[i];
+		i++;
+	}
+	(*s)[i] = 0;
+	*s = new;
+	free(tmp);
+	return (1);
+}
+
+int	ft_getline(t_list *lst, char ***line, int fd)
+{
+	char *s;
+	char *tmp;
+	int j;
+	int readint;
+
+	j = 0;
+	s = malloc(2 * BUFFER_SIZE);
+	tmp = s;
+	if ((lst->buf)[lst->i] == '\n')
+		while(++(lst->i) < BUFFER_SIZE)
+		{
+			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4)
+			{
+				s[j] = '\0';
+				**line = s;
+				return (checkret(readint, s));
+			}
+			s[j++] = (lst->buf)[lst->i];
+		}
+	lst->i = 0;
+	while ((readint = read(lst->fd, &(lst->buf), BUFFER_SIZE)) > 0)
+	{
+		while(lst->i < BUFFER_SIZE)
+		{
+			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4)
+			{
+				s[j] = 0;
+				**line = s;
+				return (checkret(readint, s));
+			}
+			s[j++] = (lst->buf)[(lst->i)++];
+		}
+		lst->i = 0;
+		ft_realloc(&s);
+	}
+	**line = s;
+	return (checkret(readint, s));
+}
