@@ -1,44 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/09 14:16:35 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/09 14:51:11 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-
-t_list *get_list(t_list *lst, int fd)
+t_list	*get_list(t_list *lst, int fd)
 {
-	t_list *tmp = lst;
+	t_list *tmp;
 
+	tmp = lst;
 	while (tmp->next)
 	{
 		if (tmp->fd == fd)
 			return (tmp);
-		tmp = tmp->next;
+		tmp = (t_list *)tmp->next;
 	}
 	if (tmp->fd == fd)
 		return (tmp);
-	tmp->next = malloc(sizeof(struct list));
-	tmp = tmp->next;
+	tmp->next = malloc(sizeof(struct s_list));
+	tmp = (t_list *)tmp->next;
 	tmp->fd = fd;
 	tmp->i = 0;
 	return (tmp);
 }
 
-int checkret(int n, char *s)
+int		checkret(int n, char *s)
 {
-	int i = 0;
+	int i;
 
+	i = 0;
 	while (*s++)
 		i++;
 	if (n < 0)
 		return (-1);
-	if ((i == 0 || s == 0) && n == 0)
+	if (i == 0)
 		return (0);
 	else
 		return (1);
 }
 
-int ft_realloc(char **s)
+int		ft_realloc(char **s)
 {
-	char *new;
-	int	i;
-	char *tmp;
+	char	*new;
+	int		i;
+	char	*tmp;
 
 	tmp = *s;
 	if (*s == NULL)
@@ -59,20 +72,46 @@ int ft_realloc(char **s)
 	return (1);
 }
 
-int	ft_getline(t_list *lst, char ***line, int fd)
+int		proc_list(t_list *lst, char **s, int fd, char ***line)
 {
-	char *s;
-	char *tmp;
 	int j;
 	int readint;
 
+	readint = 0;
 	j = 0;
-	s = malloc(2 * BUFFER_SIZE);
-	tmp = s;
-	if ((lst->buf)[lst->i] == '\n')
-		while(++(lst->i) < BUFFER_SIZE)
+	while ((readint = read(lst->fd, &(lst->buf), BUFFER_SIZE)) > 0)
+	{
+		while (lst->i < BUFFER_SIZE)
 		{
 			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4)
+			{
+				(*s)[j] = 0;
+				**line = *s;
+				return (checkret(readint, *s));
+			}
+			(*s)[j++] = (lst->buf)[(lst->i)++];
+		}
+		lst->i = 0;
+		ft_realloc(s);
+	}
+	**line = *s;
+	return (checkret(readint, *s));
+}
+
+int		ft_getline(t_list *lst, char ***line, int fd)
+{
+	char	*s;
+	int		j;
+	int		readint;
+
+	j = 0;
+	readint = 0;
+	s = malloc(2 * BUFFER_SIZE);
+	if ((lst->buf)[lst->i] == '\n')
+		while (++(lst->i) < BUFFER_SIZE)
+		{
+			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4
+					|| (lst->buf)[lst->i] == 0)
 			{
 				s[j] = '\0';
 				**line = s;
@@ -81,21 +120,5 @@ int	ft_getline(t_list *lst, char ***line, int fd)
 			s[j++] = (lst->buf)[lst->i];
 		}
 	lst->i = 0;
-	while ((readint = read(lst->fd, &(lst->buf), BUFFER_SIZE)) > 0)
-	{
-		while(lst->i < BUFFER_SIZE)
-		{
-			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4)
-			{
-				s[j] = 0;
-				**line = s;
-				return (checkret(readint, s));
-			}
-			s[j++] = (lst->buf)[(lst->i)++];
-		}
-		lst->i = 0;
-		ft_realloc(&s);
-	}
-	**line = s;
-	return (checkret(readint, s));
+	return (proc_list(lst, &s, fd, line));
 }

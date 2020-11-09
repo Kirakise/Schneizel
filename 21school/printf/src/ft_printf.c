@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:13:15 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/09 14:57:43 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/09 15:52:43 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/09 16:52:32 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include <libft.h>
+#include <stdarg.h>
 
-int	get_next_line(int fd, char **line)
+void printarg(const char **s, ...)
 {
-	static t_list	lst;
-	int				a;
-	t_list			*l;
+	va_list valist;
+	va_start(valist, getparams(*s));
 
-	l = get_list(&lst, fd);
-	a = ft_getline(l, &line, fd);
-	return (a);
+}
+
+int	ft_printf(const char *form, ...)
+{
+	va_list valist;
+	va_start(valist, form);
+	while(*from)
+	{
+		while(*form != '%')
+			write(1, form++, 1);
+		
+	}
 }
