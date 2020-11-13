@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 15:52:43 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/09 16:52:32 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/13 19:32:26 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ int isarg(char c)
 	return (0);
 }
 
-void getform(char ***s, t_arg **arg)
+void getform(const char ***s, t_arg **arg)
 {
 	(*arg)->fpos = 0;
 	(*arg)->fzer = 0;
+	(*arg)->minpos = -2;
+	(*arg)->pos = -2;
 	while (***s == '-' || ***s == '0')
 	{
 		if (***s == '-')
@@ -36,23 +38,23 @@ void getform(char ***s, t_arg **arg)
 		(**s)++;
 	}
 	if (***s > '0' && ***s <= '9')
-		*arg->pos = ft_atoi(**s);
+		(*arg)->pos = ft_atoi(**s);
 	else if(***s == '*')
-		*arg->pos = -1;
+		(*arg)->pos = -1;
 	while (***s != '.' && isarg(***s))
 			(**s)++;
 	if (***s == '.' && (**s)++)
 	{
 		if (***s == '*')
-			*arg->minpos = -1;
+			(*arg)->minpos = -1;
 		else
-			*arg->minpos = ft_atoi(**s);
+			(*arg)->minpos = ft_atoi(**s);
 	}
 	while (isarg(***s))
 		(**s)++;
 }
 
-t_arg *getarg(char **s, va_list *lst)
+t_arg *getarg(const char **s, va_list *lst)
 {
 	t_arg *arg;
 
@@ -74,7 +76,7 @@ void printarg(t_arg *arg)
 		arg->pos = ft_strlen(arg->arg) >= arg->minpos ?
 			arg->pos - ft_strlen(arg->arg) : arg->pos - arg->minpos;
 		arg->minpos -= ft_strlen(arg->arg);
-		if (arg->fpos = 0)
+		if (arg->fpos == 0)
 		{
 			while(arg->pos-- > 0)
 				write(1, " ", 1);
@@ -94,24 +96,25 @@ void printarg(t_arg *arg)
 		free(arg);
 	}
 	else
-		printargstr(t_arg *arg);
+		printargstr(arg);
 }
 
 int	ft_printf(const char *form, ...)
 {
 	va_list valist;
 	va_start(valist, form);
-	while(*from)
+	while(*form)
 	{
 		if (*form != '%')
-			write(1, form++, 1);
+			write(1, form, 1);
 		else if(*(form + 1) == '%')
-		{
 			write(1, ++form, 1);
-			form++;
-		}
 		else
-			printarg(getarg(*s));
+		{
+			form++;
+			printarg(getarg(&form, &valist));
+		}
 		form++;
 	}
+	return (0);
 }

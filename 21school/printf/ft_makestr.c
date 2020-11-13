@@ -1,26 +1,39 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-int makearg(char c, va_list **lst, t_arg **arg)
+
+char *getpointer(void *s)
+{
+	size_t tmp = (unsigned long long)s;
+	char *s1 = ft_itoax_bonus(tmp, 0);
+	return (s1);
+}
+int makearg2(char c, va_list **lst, t_arg **arg)
 {
 	if (c == 'd' || c == 'i' || c == 'u')
+	{
 		if (!((*arg)->arg = ft_itoa(va_arg(**lst, int))))
 		{
 			free(*arg);
 			return (0);
 		}
-	else if (с == 'x')
+	}
+	else if (c == 'x')
+	{
 		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, int), 0)))
 		{
 			free(*arg);
 			return (0);
 		}
+	}
 	else if (c == 'X')
-		if (!((*arg)->arg = ft_itoax_bonus(va_art(**lst, int), 1)))
+	{
+		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, int), 1)))
 		{
 			free(*arg);
 			return (0);
 		}
+	}
 	return (1);
 }
 int makearg(char c, va_list **lst, t_arg **arg)
@@ -32,12 +45,12 @@ int makearg(char c, va_list **lst, t_arg **arg)
 			free(*arg);
 			return (0);
 		}
-		(*arg)->arg[0] = va_arg(**lst, char);
+		(*arg)->arg[0] = va_arg(**lst, int);
 		(*arg)->arg[1] = '\0';
 	}
 	else if (c == 's')
 	{
-		(*arg)->arg = va_Arg(**lst, char *);
+		(*arg)->arg = va_arg(**lst, char *);
 		(*arg)->fstr = 1;
 	}
 	else if (c == 'p')
@@ -55,14 +68,16 @@ void printargstr(t_arg *arg)
 	int j;
 
 	i = 0;
-	if (arg->fpos = 0)
+	arg->minpos = arg->minpos == -2 ? ft_strlen(arg->arg) : arg->minpos;
+	arg->pos = arg->pos == -2 ? ft_strlen(arg->arg) : arg->pos;
+	if (arg->fpos == 0)
 	{
 		arg->pos -= arg->minpos;
 		j = arg->minpos - ft_strlen(arg->arg);
 		while (arg->pos-- > 0)
-			write(1, " ", 1);
+			write(1, "1", 1);
 		while (j-- > 0)
-			write(1, " ", 1);
+			write(1, "2", 1);
 		while(arg->arg[i] && i < arg->minpos)
 			write(1, &(arg->arg[i++]), 1);
 	}

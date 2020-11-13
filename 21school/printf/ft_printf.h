@@ -11,5 +11,9 @@ typedef	struct	s_arg
 	int	fstr;
 	int	pos;
 	int	minpos;
-}		t_arg
+}		t_arg;
+
+int ft_printf(const char *form, ...);
+int makearg(char c, va_list **lst, t_arg **arg);
+void printargstr(t_arg *arg);
 #endif
