@@ -47,6 +47,7 @@ int makearg(char c, va_list **lst, t_arg **arg)
 		}
 		(*arg)->arg[0] = va_arg(**lst, int);
 		(*arg)->arg[1] = '\0';
+		(*arg)->fstr = 1;
 	}
 	else if (c == 's')
 	{
@@ -65,19 +66,16 @@ int makearg(char c, va_list **lst, t_arg **arg)
 void printargstr(t_arg *arg)
 {
 	int i;
-	int j;
 
 	i = 0;
+	if (arg->arg == 0)
+		arg->arg = "(null)";
 	arg->minpos = arg->minpos == -2 ? ft_strlen(arg->arg) : arg->minpos;
-	arg->pos = arg->pos == -2 ? ft_strlen(arg->arg) : arg->pos;
 	if (arg->fpos == 0)
 	{
-		arg->pos -= arg->minpos;
-		j = arg->minpos - ft_strlen(arg->arg);
+		arg->pos -= ft_strlen(arg->arg) > arg->minpos ? arg->minpos : ft_strlen(arg->arg);
 		while (arg->pos-- > 0)
-			write(1, "1", 1);
-		while (j-- > 0)
-			write(1, "2", 1);
+			write(1, " ", 1);
 		while(arg->arg[i] && i < arg->minpos)
 			write(1, &(arg->arg[i++]), 1);
 	}

@@ -4,7 +4,7 @@
 int main()
 {
 	int a;
-	ft_printf("%3.2s", "c1231");
+	ft_printf("%7d", 33);
 	write(1, "\n", 1);
-	printf("%3.2s", "c1231"); 
+	printf("%7d", 0); 
 }

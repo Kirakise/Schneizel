@@ -2,7 +2,10 @@ SRCS = $(wildcard *.c) $(wildcard libft/*.c)
 OBJS = $(SRCS:%.c=%.o)
 
 all: $(OBJS) 
-	clang -g -Ilibft $^
+	ar -rc libftprintf.a $^
+
+aout: $(OBJS)
+	clang -g $^
 
 %.o: %.c
 	cc -c -g -Ilibft $^ -o $@

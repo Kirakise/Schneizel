@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 15:52:43 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/13 19:32:26 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/19 15:52:25 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,18 @@ t_arg *getarg(const char **s, va_list *lst)
 	if (!(arg = malloc(sizeof(struct s_arg))))
 		return (NULL);
 	getform(&s, &arg);
-	if (arg->fpos == -1)
+	if (arg->pos == -1)
+	{
 		arg->pos = va_arg(*lst, int);
-	if (arg->fzer == -1)
+		if (arg->pos < 0)
+			arg->pos = -2;
+	}
+	if (arg->minpos == -1)
+	{
 		arg->minpos = va_arg(*lst, int);
+		if (arg->minpos < 0)
+			arg->minpos = -2;
+	}
 	makearg(**s, &lst, &arg);
 	return (arg);
 }
@@ -73,8 +81,8 @@ void printarg(t_arg *arg)
 {
 	if (arg->fstr == 0)
 	{
-		arg->pos = ft_strlen(arg->arg) >= arg->minpos ?
-			arg->pos - ft_strlen(arg->arg) : arg->pos - arg->minpos;
+		arg->pos -= ft_strlen(arg->arg) > arg->minpos ?
+			ft_strlen(arg->arg) : arg->minpos;
 		arg->minpos -= ft_strlen(arg->arg);
 		if (arg->fpos == 0)
 		{
