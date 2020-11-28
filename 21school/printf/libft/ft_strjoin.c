@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:08:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 15:14:37 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/01 18:58:38 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/02 13:28:52 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
 
-# define BUFFER_SIZE 32
-
-typedef	struct		s_list
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	int				fd;
-	int				i;
-	char			buf[BUFFER_SIZE + 1];
-	struct list		*next;
-}					t_list;
+	int		size;
+	char	*ret;
+	char	*tmp;
 
-int					ft_getline(t_list *lst, char ***line, int fd);
-t_list				*get_list(t_list *lst, int fd);
-
-#endif
+	if (!s1 || !s2)
+		return (0);
+	size = ft_strlen(s1) + ft_strlen(s2);
+	ret = malloc(size + 1);
+	if (!ret)
+		return (0);
+	tmp = ret;
+	while (*s1)
+		*tmp++ = *s1++;
+	while (*s2)
+		*tmp++ = *s2++;
+	*tmp = 0;
+	return (ret);
+}

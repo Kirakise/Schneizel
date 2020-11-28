@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:08:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 15:14:37 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/01 19:20:46 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/04 14:42:01 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
 
-# define BUFFER_SIZE 32
-
-typedef	struct		s_list
+size_t		ft_strlen(const char *s)
 {
-	int				fd;
-	int				i;
-	char			buf[BUFFER_SIZE + 1];
-	struct list		*next;
-}					t_list;
+	size_t					i;
+	const unsigned char		*s1;
 
-int					ft_getline(t_list *lst, char ***line, int fd);
-t_list				*get_list(t_list *lst, int fd);
-
-#endif
+	s1 = (const unsigned char *)s;
+	i = 0;
+	while (*s1++)
+		i++;
+	return (i);
+}

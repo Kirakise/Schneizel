@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:08:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 15:14:37 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/01 20:55:55 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/01 20:56:39 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
 
-# define BUFFER_SIZE 32
-
-typedef	struct		s_list
+char	*ft_strdup(const char *s1)
 {
-	int				fd;
-	int				i;
-	char			buf[BUFFER_SIZE + 1];
-	struct list		*next;
-}					t_list;
+	int		size;
+	char	*ret;
+	char	*tmp2;
 
-int					ft_getline(t_list *lst, char ***line, int fd);
-t_list				*get_list(t_list *lst, int fd);
-
-#endif
+	tmp2 = (char *)s1;
+	size = ft_strlen(tmp2);
+	ret = malloc(sizeof(char) * size + 1);
+	if (ret == 0)
+		return (0);
+	tmp2 = ret;
+	while (*s1)
+		*tmp2++ = *s1++;
+	*tmp2 = '\0';
+	return (ret);
+}

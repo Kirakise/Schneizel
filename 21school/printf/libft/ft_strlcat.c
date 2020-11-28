@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:08:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 15:14:37 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/01 19:06:50 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/01 19:09:32 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
 
-# define BUFFER_SIZE 32
-
-typedef	struct		s_list
+size_t	ft_strlcat(char *dst, char *src, size_t size)
 {
-	int				fd;
-	int				i;
-	char			buf[BUFFER_SIZE + 1];
-	struct list		*next;
-}					t_list;
+	int i;
+	int sizet;
 
-int					ft_getline(t_list *lst, char ***line, int fd);
-t_list				*get_list(t_list *lst, int fd);
-
-#endif
+	if (ft_strlen(dst) >= size)
+		return (ft_strlen(src) + size);
+	i = ft_strlen(dst) + ft_strlen(src);
+	sizet = size - ft_strlen(dst) - 1;
+	if (sizet < 0)
+		return (i);
+	while (*dst)
+		dst++;
+	while (sizet-- && *src)
+		*dst++ = *src++;
+	*dst = '\0';
+	return (i);
+}

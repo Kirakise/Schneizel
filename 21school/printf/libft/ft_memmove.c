@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/09 14:08:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 15:14:37 by rcaraway         ###   ########.fr       */
+/*   Created: 2020/11/01 20:54:42 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/01 20:55:50 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
+#include "libft.h"
 
-# define BUFFER_SIZE 32
-
-typedef	struct		s_list
+void	*ft_memmove(void *to, void *from, size_t len)
 {
-	int				fd;
-	int				i;
-	char			buf[BUFFER_SIZE + 1];
-	struct list		*next;
-}					t_list;
+	static unsigned char	buf[1024 * 1024 * 1024];
+	unsigned long			i;
+	unsigned char			*s;
+	unsigned char			*s2;
 
-int					ft_getline(t_list *lst, char ***line, int fd);
-t_list				*get_list(t_list *lst, int fd);
-
-#endif
+	s = to;
+	s2 = from;
+	if (s == 0 && s2 == 0)
+		return (0);
+	i = 0;
+	while (i < len)
+		buf[i++] = *s2++;
+	i = 0;
+	while (i < len)
+		*s++ = buf[i++];
+	return (to);
+}

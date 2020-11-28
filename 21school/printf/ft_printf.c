@@ -6,16 +6,18 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 15:52:43 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/19 15:52:25 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/28 18:25:34 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_printf.h"
 
-int isarg(char c)
+int		isarg(char c)
 {
-	const char *s = "cspdiuxX";
+	const char *s;
+
+	s = "cspdiuxX";
 	while (*s != c && *s)
 		s++;
 	if (!*s)
@@ -23,12 +25,9 @@ int isarg(char c)
 	return (0);
 }
 
-void getform(const char ***s, t_arg **arg)
+void	getform(const char ***s, t_arg **arg)
 {
-	(*arg)->fpos = 0;
-	(*arg)->fzer = 0;
-	(*arg)->minpos = -2;
-	(*arg)->pos = -2;
+	makenode(arg);
 	while (***s == '-' || ***s == '0')
 	{
 		if (***s == '-')
@@ -39,22 +38,14 @@ void getform(const char ***s, t_arg **arg)
 	}
 	if (***s > '0' && ***s <= '9')
 		(*arg)->pos = ft_atoi(**s);
-	else if(***s == '*')
+	else if (***s == '*')
 		(*arg)->pos = -1;
-	while (***s != '.' && isarg(***s))
-			(**s)++;
-	if (***s == '.' && (**s)++)
-	{
-		if (***s == '*')
-			(*arg)->minpos = -1;
-		else
-			(*arg)->minpos = ft_atoi(**s);
-	}
-	while (isarg(***s))
+	while (***s != '.' && isarg(***s) && ***s != '%')
 		(**s)++;
+	getform2(s, arg);
 }
 
-t_arg *getarg(const char **s, va_list *lst)
+t_arg	*getarg(const char **s, va_list *lst)
 {
 	t_arg *arg;
 
@@ -65,7 +56,10 @@ t_arg *getarg(const char **s, va_list *lst)
 	{
 		arg->pos = va_arg(*lst, int);
 		if (arg->pos < 0)
-			arg->pos = -2;
+		{
+			arg->fpos = 1;
+			arg->pos = -arg->pos;
+		}
 	}
 	if (arg->minpos == -1)
 	{
@@ -77,52 +71,35 @@ t_arg *getarg(const char **s, va_list *lst)
 	return (arg);
 }
 
-void printarg(t_arg *arg)
+int		printarg(t_arg *arg)
 {
-	if (arg->fstr == 0)
-	{
-		arg->pos -= ft_strlen(arg->arg) > arg->minpos ?
-			ft_strlen(arg->arg) : arg->minpos;
-		arg->minpos -= ft_strlen(arg->arg);
-		if (arg->fpos == 0)
-		{
-			while(arg->pos-- > 0)
-				write(1, " ", 1);
-			while(arg->minpos-- > 0)
-				write(1, "0", 1);
-			ft_putstr_bonus(arg->arg);
-		}
-		else
-		{
-			while(arg->minpos-- > 0)
-				write(1, "0", 1);
-			ft_putstr_bonus(arg->arg);
-			while(arg->pos-- > 0)
-				write(1, " ", 1);
-		}
-		free(arg->arg);
-		free(arg);
-	}
+	int i;
+
+	i = 0;
+	if (arg->fstr != 1)
+		i = ft_printd(arg);
 	else
-		printargstr(arg);
+		i = printargstr(arg);
+	return (i);
 }
 
-int	ft_printf(const char *form, ...)
+int		ft_printf(const char *form, ...)
 {
 	va_list valist;
+	int		i;
+
+	i = 0;
 	va_start(valist, form);
-	while(*form)
+	while (*form)
 	{
-		if (*form != '%')
+		if (*form != '%' && ++i)
 			write(1, form, 1);
-		else if(*(form + 1) == '%')
-			write(1, ++form, 1);
 		else
 		{
 			form++;
-			printarg(getarg(&form, &valist));
+			i += printarg(getarg(&form, &valist));
 		}
 		form++;
 	}
-	return (0);
+	return (i);
 }

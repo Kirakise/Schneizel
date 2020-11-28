@@ -1,8 +1,11 @@
 SRCS = $(wildcard *.c) $(wildcard libft/*.c)
 OBJS = $(SRCS:%.c=%.o)
+NAME = libftprintf.a
+
+$(NAME): all
 
 all: $(OBJS) 
-	ar -rc libftprintf.a $^
+	ar -rc $(NAME) $^
 
 aout: $(OBJS)
 	clang -g $^
@@ -12,5 +15,6 @@ aout: $(OBJS)
 
 clean:
 	rm -rf libft/*.o *.o
-	rm a.out
-re: clean all
+fclean: clean
+	rm -f $(NAME)
+re: fclean all

@@ -1,7 +1,0 @@
-Test 198 (d_width_pos_fits) : FAILED.
-    First line of code: {return test("%7d", 33);}
-      expected output : "     33"
-      your output     : "         33"
-      expected (nonprintable as hex) : "     33"
-      actual   (nonprintable as hex) : "         33"
-

@@ -1,16 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_makestr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/28 17:22:59 by rcaraway          #+#    #+#             */
+/*   Updated: 2020/11/28 18:23:36 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "ft_printf.h"
 
-
-char *getpointer(void *s)
+char	*getpointer(void *s)
 {
-	size_t tmp = (unsigned long long)s;
-	char *s1 = ft_itoax_bonus(tmp, 0);
+	uintptr_t	tmp;
+	char		*s1;
+
+	tmp = (uintptr_t)s;
+	s1 = ft_itoap(tmp, 0);
 	return (s1);
 }
-int makearg2(char c, va_list **lst, t_arg **arg)
+
+int		makearg2(char c, va_list **lst, t_arg **arg)
 {
-	if (c == 'd' || c == 'i' || c == 'u')
+	if (c == 'd' || c == 'i')
 	{
 		if (!((*arg)->arg = ft_itoa(va_arg(**lst, int))))
 		{
@@ -18,40 +33,31 @@ int makearg2(char c, va_list **lst, t_arg **arg)
 			return (0);
 		}
 	}
-	else if (c == 'x')
+	else if (c == 'u')
 	{
-		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, int), 0)))
+		if (!((*arg)->arg = ft_itoau(va_arg(**lst, unsigned int))))
 		{
 			free(*arg);
 			return (0);
 		}
 	}
-	else if (c == 'X')
-	{
-		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, int), 1)))
-		{
-			free(*arg);
-			return (0);
-		}
-	}
-	return (1);
+	return (makearg3(c, lst, arg));
 }
-int makearg(char c, va_list **lst, t_arg **arg)
+
+int		makearg(char c, va_list **lst, t_arg **arg)
 {
 	if (c == 'c')
 	{
-		if(!((*arg)->arg = malloc(2)))
+		if (!((*arg)->arg = malloc(2)))
 		{
 			free(*arg);
 			return (0);
 		}
+		(*arg)->ffree = 1;
 		(*arg)->arg[0] = va_arg(**lst, int);
+		if ((*arg)->arg[0] == 0)
+			(*arg)->fnul = 1;
 		(*arg)->arg[1] = '\0';
-		(*arg)->fstr = 1;
-	}
-	else if (c == 's')
-	{
-		(*arg)->arg = va_arg(**lst, char *);
 		(*arg)->fstr = 1;
 	}
 	else if (c == 'p')
@@ -60,30 +66,34 @@ int makearg(char c, va_list **lst, t_arg **arg)
 			free(*arg);
 			return (0);
 		}
-	return(makearg2(c, lst, arg));
+	return (makearg2(c, lst, arg));
 }
 
-void printargstr(t_arg *arg)
+int		printargstr(t_arg *arg)
 {
 	int i;
+	int j;
 
 	i = 0;
+	j = 0;
 	if (arg->arg == 0)
 		arg->arg = "(null)";
 	arg->minpos = arg->minpos == -2 ? ft_strlen(arg->arg) : arg->minpos;
 	if (arg->fpos == 0)
-	{
-		arg->pos -= ft_strlen(arg->arg) > arg->minpos ? arg->minpos : ft_strlen(arg->arg);
-		while (arg->pos-- > 0)
-			write(1, " ", 1);
-		while(arg->arg[i] && i < arg->minpos)
-			write(1, &(arg->arg[i++]), 1);
-	}
+		j += printargstr2(arg, i, j);
 	else
 	{
-		while(arg->arg[i] && i < arg->minpos)
+		while (((arg->arg[i] && i < arg->minpos) || arg->fnul) && ++j)
+		{
+			if (arg->arg[i] == 0 && arg->fnul)
+				arg->fnul = 0;
 			write(1, &(arg->arg[i++]), 1);
-		while(i++ < arg->pos)
+		}
+		while (i++ < arg->pos && ++j)
 			write(1, " ", 1);
 	}
+	if (arg->ffree)
+		free(arg->arg);
+	free(arg);
+	return (j);
 }

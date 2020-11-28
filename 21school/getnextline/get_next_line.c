@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 14:13:15 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/09 14:57:43 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/28 15:16:00 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,15 @@ int	get_next_line(int fd, char **line)
 	l = get_list(&lst, fd);
 	a = ft_getline(l, &line, fd);
 	return (a);
+}
+
+int main()
+{
+	int a = open("file.txt", O_RDONLY);
+	char *s;
+	get_next_line(a, &s);
+	printf("%s", s);
+	get_next_line(a, &s);
+	printf("%s", s);
+
 }
