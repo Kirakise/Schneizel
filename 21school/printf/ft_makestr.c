@@ -15,10 +15,10 @@
 
 char	*getpointer(void *s)
 {
-	uintptr_t	tmp;
+	intptr_t	tmp;
 	char		*s1;
 
-	tmp = (uintptr_t)s;
+	tmp = (intptr_t)s;
 	s1 = ft_itoap(tmp, 0);
 	return (s1);
 }

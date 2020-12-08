@@ -85,6 +85,7 @@ int		proc_list(t_list *lst, char **s, int fd, char ***line)
 		{
 			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4)
 			{
+				(*s)[j] = '\n';
 				(*s)[j] = 0;
 				**line = *s;
 				return (checkret(readint, *s));
@@ -113,7 +114,8 @@ int		ft_getline(t_list *lst, char ***line, int fd)
 			if ((lst->buf)[lst->i] == '\n' || (lst->buf)[lst->i] == 4
 					|| (lst->buf)[lst->i] == 0)
 			{
-				s[j] = '\0';
+				s[j] = '\n';
+				s[j+1] = 0;
 				**line = s;
 				return (checkret(readint, s));
 			}

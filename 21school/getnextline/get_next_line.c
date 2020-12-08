@@ -28,8 +28,8 @@ int main()
 	int a = open("file.txt", O_RDONLY);
 	char *s;
 	get_next_line(a, &s);
-	printf("%s", s);
-	get_next_line(a, &s);
-	printf("%s", s);
+	printf("%s\n", s);
+	get_next_line(0, &s);
+	printf("%s\n", s);
 
 }
