@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:33:19 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 18:27:06 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/30 16:31:54 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	makenode(t_arg **arg)
 {
 	(*arg)->fpos = 0;
 	(*arg)->fzer = 0;
+	(*arg)->fposzer = 0;
 	(*arg)->minpos = -2;
 	(*arg)->pos = -2;
 	(*arg)->fnul = 0;
+	(*arg)->fstr = 0;
 	(*arg)->ffree = 0;
 }
 
@@ -30,7 +32,10 @@ void	getform2(const char ***s, t_arg **arg)
 		if (***s == '*')
 			(*arg)->minpos = -1;
 		else
+		{
+			(*arg)->fposzer = 1;
 			(*arg)->minpos = ft_atoi(**s);
+		}
 	}
 	while (***s != '%' && isarg(***s))
 		(**s)++;
@@ -77,8 +82,10 @@ int		ft_printd(t_arg *arg)
 	int i;
 
 	i = 0;
-	e = arg->minpos;
 	j = 0;
+	if (arg->minpos == 0 && arg->fposzer == 1 && ft_strncmp(arg->arg, "0", 3))
+		arg->minpos = -2;
+	e = arg->minpos;
 	if (!e)
 		arg->pos = arg->pos;
 	else if (ft_strlen(arg->arg) > arg->minpos || arg->minpos == -2)

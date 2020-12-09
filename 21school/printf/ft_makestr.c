@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:22:59 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 18:23:36 by rcaraway         ###   ########.fr       */
+/*   Updated: 2020/11/30 16:06:00 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 char	*getpointer(void *s)
 {
-	intptr_t	tmp;
+	uintptr_t	tmp;
 	char		*s1;
 
-	tmp = (intptr_t)s;
+	tmp = (uintptr_t)s;
 	s1 = ft_itoap(tmp, 0);
 	return (s1);
 }

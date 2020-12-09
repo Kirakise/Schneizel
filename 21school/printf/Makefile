@@ -5,16 +5,16 @@ NAME = libftprintf.a
 $(NAME): all
 
 all: $(OBJS) 
-	ar -rc $(NAME) $^
+	@ar -rc $(NAME) $^
 
 aout: $(OBJS)
-	clang -g $^
+	@gcc -Wno-format -g $^
 
 %.o: %.c
-	cc -c -g -Ilibft $^ -o $@
+	@cc -c -g -Ilibft $^ -o $@
 
 clean:
-	rm -rf libft/*.o *.o
+	@rm -rf libft/*.o *.o
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 re: fclean all
