@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 11:49:49 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/12/12 20:21:40 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/16 21:21:55 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_list{
 int					get_next_line(int fd, char **line);
 int					ft_getline(int fd, char **line, t_list *lst, int i);
 int					ft_realloc(char **s, int num);
-void				ft_clrlst(char **s);
+int					ft_clrlst(char **s);
 t_list				*getlist(int fd, t_list *lst);
-
+int					clrbuf(char **s, int i);
 #endif
