@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 11:39:48 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/16 22:10:42 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/16 22:11:58 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	clrbuf(char **s, int i)
 		return (1);
 	c = (*s)[i - 1];
 	tmp = --i;
-	while (i - tmp <= 2)
+	while (i - tmp <= 1)
 		(*s)[i++] = '\0';
 	(*s)[tmp] = c;
 	return (1);
