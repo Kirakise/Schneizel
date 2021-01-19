@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:33:19 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/30 16:31:54 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:08:02 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int		ft_printd(t_arg *arg)
 
 	i = 0;
 	j = 0;
-	if (arg->minpos == 0 && arg->fposzer == 1 && ft_strncmp(arg->arg, "0", 3))
+	if (arg->minpos == 0 && ft_strncmp(arg->arg, "0", 2)
+			&& (arg->fzer = 0) == 0)
 		arg->minpos = -2;
 	e = arg->minpos;
 	if (!e)

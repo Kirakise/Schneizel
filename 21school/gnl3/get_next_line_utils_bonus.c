@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 17:15:01 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/19 17:19:42 by rcaraway         ###   ########.fr       */
+/*   Created: 2021/01/19 17:22:59 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/01/19 17:23:01 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void			ft_bzero(char **s)
 {

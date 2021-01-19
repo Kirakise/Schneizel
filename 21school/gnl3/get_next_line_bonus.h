@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 17:05:54 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/19 17:11:50 by rcaraway         ###   ########.fr       */
+/*   Created: 2021/01/19 17:23:24 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/01/19 17:23:37 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-int	get_next_line(int fd, char **line)
-{
-	static t_str	arr[4096];
+# include <unistd.h>
+# include <stdlib.h>
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line || read(fd, NULL, 0))
-		return (-1);
-	*line = malloc(1);
-	**line = 0;
-	return (ft_getline(fd, &(arr[fd]), line, 0));
-}
+typedef	struct	s_str{
+	int			fd;
+	int			pos;
+	char		*buf;
+}				t_str;
+int				get_next_line(int fd, char **line);
+void			ft_bzero(char **s);
+int				ft_strlen(char *s);
+void			ft_strjoin(char **s1, char **s2);
+int				ft_getline(int fd, t_str *str, char **line, int i);
+
+#endif

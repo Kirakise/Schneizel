@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 16:57:31 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 17:55:51 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:31:10 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			*ft_memcpy(void *restrict to, void *restrict from,
 				size_t count);
 void			*ft_memccpy(void *restrict to, void *restrict from,
 				int c, size_t n);
-char			*ft_itoax_bonus(size_t n, int big);
+char			*ft_itoax_bonus(unsigned int n, int big);
 int				ft_putstr_bonus(char *s);
 void			*ft_memmove(void *restrict to, void *restrict from, size_t len);
 char			*ft_strchr(const char *s, int c);

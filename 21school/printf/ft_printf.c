@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/09 15:52:43 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/30 15:53:05 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/13 17:14:17 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		ft_printf(const char *form, ...)
 	va_list valist;
 	int		i;
 
+	if (!form)
+		return (-1);
 	i = 0;
 	va_start(valist, form);
 	while (*form)

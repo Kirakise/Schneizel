@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 17:05:54 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/19 17:11:50 by rcaraway         ###   ########.fr       */
+/*   Created: 2021/01/19 17:23:10 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/01/19 17:23:12 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	get_next_line(int fd, char **line)
 {

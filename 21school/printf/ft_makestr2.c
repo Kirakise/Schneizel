@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:36:43 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/12/09 14:41:06 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:30:29 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		makearg3(char c, va_list **lst, t_arg **arg)
 {
 	if (c == 'x')
 	{
-		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, long long), 0)))
+		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, unsigned int), 0)))
 		{
 			free(*arg);
 			return (0);
@@ -25,7 +25,7 @@ int		makearg3(char c, va_list **lst, t_arg **arg)
 	}
 	else if (c == 'X')
 	{
-		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, long long), 1)))
+		if (!((*arg)->arg = ft_itoax_bonus(va_arg(**lst, unsigned int), 1)))
 		{
 			free(*arg);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 17:43:06 by rcaraway          #+#    #+#             */
-/*   Updated: 2020/11/28 18:35:30 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/15 20:29:06 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int		intsize(size_t n)
 	return (i);
 }
 
-char			*ft_itoax_bonus(size_t n, int big)
+char			*ft_itoax_bonus(unsigned int n, int big)
 {
 	char	*s;
 	int		i;
