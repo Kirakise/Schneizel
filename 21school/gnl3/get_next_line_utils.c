@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 17:15:01 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/19 17:19:42 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/01/20 16:02:21 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,8 @@ static void		ft_costil(t_str **str, char **tmp)
 {
 	*tmp = malloc(BUFFER_SIZE + 1);
 	ft_bzero(tmp);
-	if (!((*str)->buf))
-	{
-		(*str)->buf = malloc(BUFFER_SIZE + 1);
-		ft_bzero(&((*str)->buf));
-	}
+	str++;
+	str--;
 }
 
 int				ft_getline(int fd, t_str *str, char **line, int i)
@@ -79,13 +76,13 @@ int				ft_getline(int fd, t_str *str, char **line, int i)
 				ft_strjoin(line, &tmp);
 				free(tmp);
 				if (!(str->buf[str->pos]))
-					ft_bzero(&(str->buf));
+					ft_bzero2(&(str->buf[0]));
 				return (1);
 			}
 		}
 		i = 0;
 		ft_strjoin(line, &tmp);
-		ft_bzero(&(str->buf));
+		ft_bzero2(&(str->buf[0]));
 		ft_bzero(&tmp);
 	}
 	free(tmp);

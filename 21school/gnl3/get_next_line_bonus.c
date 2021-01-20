@@ -5,14 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 17:23:10 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/19 17:23:12 by rcaraway         ###   ########.fr       */
+/*   Created: 2021/01/20 18:52:53 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/01/20 18:52:55 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
-int	get_next_line(int fd, char **line)
+void	ft_bzero2(char *s)
+{
+	int i;
+
+	i = 0;
+	while (i <= BUFFER_SIZE)
+		s[i++] = 0;
+}
+
+int		get_next_line(int fd, char **line)
 {
 	static t_str	arr[4096];
 
