@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/20 18:53:02 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/01/20 18:53:03 by rcaraway         ###   ########.fr       */
+/*   Created: 2021/01/19 17:15:01 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/01/21 19:00:29 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,26 +45,30 @@ void			ft_strjoin(char **s1, char **s2)
 		tmp[i] = (*s1)[i];
 		i++;
 	}
-	while ((*s2)[j])
+	while ((*s2)[j] && (*s2)[j] != '\n' && (*s2)[j] != 4)
 		tmp[i++] = (*s2)[j++];
 	tmp[i] = 0;
 	free(*s1);
 	*s1 = tmp;
 }
 
-static void		ft_costil(t_str **str, char **tmp)
+static int		ft_costil(t_str **str, char **tmp)
 {
 	*tmp = malloc(BUFFER_SIZE + 1);
+	if (!tmp)
+		return (1);
 	ft_bzero(tmp);
 	str++;
 	str--;
+	return (0);
 }
 
 int				ft_getline(int fd, t_str *str, char **line, int i)
 {
 	char *tmp;
 
-	ft_costil(&str, &tmp);
+	if (ft_costil(&str, &tmp))
+		return (-1);
 	while ((str->buf[str->pos]) || (read(fd, str->buf, BUFFER_SIZE)
 				&& !(str->pos = 0)))
 	{
@@ -72,7 +76,6 @@ int				ft_getline(int fd, t_str *str, char **line, int i)
 		{
 			if (tmp[i - 1] == '\n' || tmp[i - 1] == 4)
 			{
-				tmp[i - 1] = 0;
 				ft_strjoin(line, &tmp);
 				free(tmp);
 				if (!(str->buf[str->pos]))
