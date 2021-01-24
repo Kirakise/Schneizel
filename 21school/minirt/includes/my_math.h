@@ -1,3 +1,5 @@
+#ifndef MY_MATH_H
+# define MY_MATH_H
 typedef struct	s_vector{
 	double		x;
 	double		y;
@@ -20,6 +22,18 @@ typedef	struct	s_line{
 }				t_line;
 
 typedef struct	s_sphere{
-	double		center;
+	t_point		center;
 	double		radius;
 }				t_sphere;
+
+typedef struct	s_plane{
+	t_vector	v;
+	t_point		p;
+}				t_plane;
+
+typedef struct	s_result{
+	double		t1;
+	double		t2;
+	int			nan;
+}				t_result;
+#endif

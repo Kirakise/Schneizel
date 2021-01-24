@@ -1,6 +1,7 @@
 SRCS = $(wildcard src/*.c)
 OBJS = $(SRCS:%.c=%.o)
 NAME = result
+CC = clang
 
 all: $(NAME)
 

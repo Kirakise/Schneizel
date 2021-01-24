@@ -1,11 +1,10 @@
 #include <mlx.h>
 
-int main()
+int main(int args, char **argv)
 {
-	void *mlx;
-	void *mlx_win;
-
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "hello world");
-	mlx_loop(mlx);
+	if (args > 3 || parse(argv[1]) == -1)
+	{
+		printerror();
+		return (-1);
+	}
 }
