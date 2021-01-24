@@ -1,5 +1,13 @@
 #ifndef MY_MATH_H
 # define MY_MATH_H
+
+typedef struct	s_color
+{
+	int		R;
+	int		G;
+	int		B;
+}				t_color;
+
 typedef struct	s_vector{
 	double		x;
 	double		y;
@@ -24,11 +32,13 @@ typedef	struct	s_line{
 typedef struct	s_sphere{
 	t_point		center;
 	double		radius;
+	t_color		color;
 }				t_sphere;
 
 typedef struct	s_plane{
 	t_vector	v;
 	t_point		p;
+	t_color		color;
 }				t_plane;
 
 typedef struct	s_result{

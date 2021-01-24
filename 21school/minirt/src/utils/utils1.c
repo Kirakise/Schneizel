@@ -1,4 +1,6 @@
+#
 #include <unistd.h>
+#include "../../includes/ultimate.h"
 
 void ft_putstr(char *s)
 {
@@ -8,6 +10,6 @@ void ft_putstr(char *s)
 	while (s[i])
 	{
 		write(1, s + i, 1);
-		write(1, "\n", 1);
+		i++;
 	}
 }

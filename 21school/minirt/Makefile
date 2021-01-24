@@ -1,4 +1,4 @@
-SRCS = $(wildcard src/*.c)
+SRCS = $(wildcard src/*.c) $(wildcard src/math/*.c) $(wildcard src/parcer/*.c) $(wildcard src/utils/*.c) $(wildcard src/constructors/*.c)
 OBJS = $(SRCS:%.c=%.o)
 NAME = result
 CC = clang
@@ -6,9 +6,9 @@ CC = clang
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -framework OpenGL -framework AppKit $^ libmlx.a -o $(NAME)
+	$(CC) -g libmlx.a -framework OpenGL -framework AppKit $^ -o $(NAME)
 %.o: %.c
-	$(CC) -Wall -Wextra -Werror -c $^ -o $@
+	$(CC) -g -Wall -Wextra -Werror -c $^ -o $@
 clean:
 	rm $(OBJS)
 fclean: clean

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/get_next_line.h"
+#include "../../includes/ultimate.h"
 
 void	ft_bzero2(char *s)
 {

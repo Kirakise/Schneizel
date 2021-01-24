@@ -1,13 +1,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 # include "my_math.h"
+# include <mlx.h>
+# define DIST 0.1
 
-typedef struct	s_color
-{
-	int		R;
-	int		G;
-	int		B;
-}				t_color;
 typedef struct	s_obj
 {
 	void *obj;
@@ -31,10 +27,18 @@ typedef struct	s_light
 	struct s_light *next;
 }				t_light;
 
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*win;
+}				t_mlx;
+
+
 typedef struct	s_data{
 	t_obj *objects;
 	t_cam *cams;
 	t_light *lights;
+	t_mlx	mlx;
 	double	alratio;
 	t_color	alcolor;
 	int		Swidth;
