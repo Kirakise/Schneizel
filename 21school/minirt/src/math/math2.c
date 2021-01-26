@@ -20,3 +20,14 @@ t_line		*makeline(t_point *p, t_vector *v)
 
 	return  (l);
 }
+
+t_point		*getpointonline(t_line *l, int t)
+{
+	t_point	*p;
+
+	p = malloc(sizeof(struct s_point));
+	p->x = l->xmul * t + l->xadd;
+	p->y = l->ymul * t + l->yadd;
+	p->z = l->zmul * t + l->zadd;
+	return (p);
+}

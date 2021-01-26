@@ -45,3 +45,7 @@ t_result	*CheckPlane(t_line *l, t_plane *p)
 	return (r);
 }
 
+double VectorModule(t_vector *t)
+{
+	return (sqrt(t->x * t->x + t->y * t->y + t->z * t->z));
+}

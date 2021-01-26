@@ -11,14 +11,6 @@ typedef struct	s_obj
 	struct s_obj *next;
 }				t_obj;
 
-typedef struct	s_cam
-{
-	t_point			p;
-	t_vector		v;
-	int				fow;
-	struct s_cam *next;
-}				t_cam;
-
 typedef struct	s_light
 {
 	t_point		p;
