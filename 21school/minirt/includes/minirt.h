@@ -2,6 +2,7 @@
 # define MINIRT_H
 # include "my_math.h"
 # include <mlx.h>
+
 # define DIST 0.1
 
 typedef struct	s_obj
@@ -37,5 +38,4 @@ typedef struct	s_data{
 	int		Sheight;
 	int		Save;
 }				t_data;
-
 #endif

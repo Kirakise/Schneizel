@@ -61,6 +61,7 @@ t_line		*makeline(t_point *p, t_vector *v);
 double		distance(t_point *t1, t_point *t2);
 t_result	*CheckPlane(t_line *l, t_plane *p);
 t_result	*CheckSphere(t_line *l, t_sphere *s);
+t_line		*makelinep(t_point *p1, t_point *p2);
 void ChangeCords(t_cam *c);
 void RotateZV(t_vector *v, double angle);
 void RotateYV(t_vector *v, double angle);

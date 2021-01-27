@@ -28,4 +28,7 @@ int main(int args, char **argv)
 		ft_putstr("Error with scene\n");
 		return (-1);
 	}
+	get_image(g_data.cams->next);
+	mlx_hook(g_data.mlx.win, 2, 1L<<0, closewin, &(g_data.mlx));
+	mlx_loop(g_data.mlx.mlx);
 }
