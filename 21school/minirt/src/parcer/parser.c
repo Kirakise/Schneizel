@@ -22,6 +22,7 @@ int parsefile(char *s)
 			return (-1);
 		}
 	}
+	parseline(s1);
 	free(s1);
 	return (1);
 }

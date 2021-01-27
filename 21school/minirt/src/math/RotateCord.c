@@ -7,8 +7,8 @@ void RotateCord(t_cam *c)
 
 	if (c->v.z < 0)
 		RotateAll(pi_num, 0, c);
-	angle1 = atan(c->v.y / c->v.z);
-	angle2 = asin((c->v.x) / VectorModule(&(c->v)));
+	angle1 = c->v.y != 0 ? atan(c->v.y / c->v.z) : 0;
+	angle2 = c->v.x != 0 ? asin((c->v.x) / VectorModule(&(c->v))) : 0;
 	RotateAll(angle1, angle2, c);
 }
 

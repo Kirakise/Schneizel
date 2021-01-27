@@ -1,30 +1,22 @@
 #include "../../includes/ultimate.h"
 #include <math.h>
 
-t_result	*CheckSphere(t_line *l, t_sphere *s)
+double		CheckSphere(t_line *l, t_sphere *s)
 {
 	double		k1;
 	double		k2;
 	double		k3;
-	t_result	*r;
+	double		r1;
+	double		r2;
 
-	r = malloc(sizeof(struct s_result));
-	r->nan = 0;
 	k1 = pow(l->xmul, 2) + pow(l->ymul, 2) + pow(l->zmul, 2);
 	k2 = l->xmul * (l->xadd - s->center.x) + l->ymul * (l->yadd - s->center.y) + l->zmul * (l->zadd - s->center.z);
-	k3 = pow(l->xadd - s->center.x, 2) + pow(l->yadd - s->center.y, 2) + pow(l->zadd - s->center.z, 2);
-	if (((k1 == 0 && k2 == 0) || k2*k2 - 4*k1*k3 < 0) && (r->nan = 1))
-		return (r);
-	if (k1 == 0)
-	{
-		r->t1 = -k3/k2;
-		r->t2 = r->t1;
-		return (r);
-	}
-	r->t1 = (-k2 + sqrt(k2 * k2 - k1 * k3)) / k1;
-	r->t2 = (-k2 - sqrt(k2 * k2 - k1 * k3)) / k1;
-	return (r);
+	k3 = pow(l->xadd - s->center.x, 2) + pow(l->yadd - s->center.y, 2) + pow(l->zadd - s->center.z, 2) - pow(s->radius, 2);
+	r1 = (-k2 + sqrt(k2 * k2 - k1 * k3)) / k1;
+	r2 = (-k2 - sqrt(k2 * k2 - k1 * k3)) / k1;
+	return (r1 < r2 && r1 > 0 ? r1 : r2);
 }
+
 
 t_result	*CheckPlane(t_line *l, t_plane *p)
 {

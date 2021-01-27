@@ -20,21 +20,23 @@ void get_image(t_cam *c)
 	int w;
 	t_line *l;
 	t_point p;
+	double res;
 
 	ChangeCords(c);
 	mlx_start();
-	h = 1;
-	w = 0;
-	while(h++ < g_data.Sheight)
+	h = 0;
+	while(h++ < g_data.Sheight && !(w = 0))
 	{
 		while(w++ < g_data.Swidth)
 		{
-			p.x = w;
-			p.y = h;
+			p.x = w - g_data.Swidth / 2;
+			p.y = g_data.Sheight / 2 - h;
 			p.z = 1;
 			l = makelinep(&(c->p), &p);
-			if (!isnan(CheckSphere(l, g_data.objects->next->obj)->t1) || 1)
+			res = CheckSphere(l, g_data.objects->next->obj);
+			if (!isnan(res) && res > 0)
 				mlx_pixel_put(g_data.mlx.mlx, g_data.mlx.win, w, h, 0x00FFFFFF);
+			free(l);
 		}
 	}
 }
