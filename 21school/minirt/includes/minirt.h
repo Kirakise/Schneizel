@@ -38,5 +38,4 @@ typedef struct	s_data{
 	int		Save;
 }				t_data;
 
-t_data			g_data;
 #endif

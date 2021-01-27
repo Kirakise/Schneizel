@@ -1,6 +1,7 @@
 #include "../includes/ultimate.h"
 #include <stdio.h>
 
+t_data	g_data;
 int initialize()
 {
 	g_data.objects = objconst();

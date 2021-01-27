@@ -8,4 +8,5 @@
 #include "get_next_line.h"
 #include "constructors.h"
 #include "my_mlx.h"
+extern t_data			g_data;
 #endif

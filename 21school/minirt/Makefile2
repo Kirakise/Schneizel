@@ -6,7 +6,7 @@ CC = clang
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) -g libmlx.a -lmlx  -lX11 -lXext $^ -o $(NAME) -lm
+	$(CC) -g libmlx.a -shared -framework OpenGL -framework AppKit $^ -o $(NAME)
 %.o: %.c
 	$(CC) -g -Wall -Wextra -Werror -c $^ -o $@
 clean:

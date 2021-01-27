@@ -1,5 +1,4 @@
 #include "../../includes/ultimate.h"
-#include <math.h>
 
 double		distance(t_point *t1, t_point *t2)
 {
