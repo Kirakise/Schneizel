@@ -14,13 +14,22 @@ int closewin(int keycode, t_mlx *mlx)
 	return (1);
 }
 
+int	color_to_int(t_color *c)
+{
+	return ((c->R << 16) + (c->G << 8) + c->B);
+}
+
+void mlx_put_color(int c, int x, int y)
+{
+	mlx_pixel_put(g_data.mlx.mlx, g_data.mlx.win, x, y, c);
+}
+
 void get_image(t_cam *c)
 {
 	int h;
 	int w;
 	t_line *l;
 	t_point p;
-	double res;
 
 	ChangeCords(c);
 	mlx_start();
@@ -29,13 +38,11 @@ void get_image(t_cam *c)
 	{
 		while(w++ < g_data.Swidth)
 		{
-			p.x = w - g_data.Swidth / 2;
-			p.y = g_data.Sheight / 2 - h;
+			p.x = (w - g_data.Swidth / 2.0) * 1 / g_data.Swidth;
+			p.y = (g_data.Sheight / 2.0 - h) * 1 / g_data.Sheight;
 			p.z = 1;
 			l = makelinep(&(c->p), &p);
-			res = CheckSphere(l, g_data.objects->next->obj);
-			if (!isnan(res) && res > 0)
-				mlx_pixel_put(g_data.mlx.mlx, g_data.mlx.win, w, h, 0x00FFFFFF);
+			mlx_put_color(CheckObjects(l), w, h);
 			free(l);
 		}
 	}

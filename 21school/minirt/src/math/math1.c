@@ -25,15 +25,13 @@ t_result	*CheckPlane(t_line *l, t_plane *p)
 	double		k1;
 	
 	r = malloc(sizeof(struct s_result));
-	r->nan = 0;
 	d = p->v.x * p->p.x + p->v.y * p->p.y + p->v.z * p->p.z;
 	k1 = p->v.x * l->xmul + p->v.y * l->ymul + p->v.z * l->zmul;
 	if (k1 == 0)
 	{
-		r->nan = 1;
 		return (r);
+	r->res = d - p->v.x * l->xadd - p->v.y * l->yadd - p->v.z * l->zadd;
 	}
-	r->t1 = d - p->v.x * l->xadd - p->v.y * l->yadd - p->v.z * l->zadd;
 	return (r);
 }
 

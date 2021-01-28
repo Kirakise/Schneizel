@@ -44,3 +44,10 @@ t_point		*getpointonline(t_line *l, int t)
 	p->z = l->zmul * t + l->zadd;
 	return (p);
 }
+
+void		makecolor(t_color *c, int R, int G, int B)
+{
+	c->R = R;
+	c->B = B;
+	c->G = G;
+}

@@ -43,9 +43,8 @@ typedef struct	s_plane{
 }				t_plane;
 
 typedef struct	s_result{
-	double		t1;
-	double		t2;
-	int			nan;
+	double		res;
+	t_color		color;
 }				t_result;
 
 typedef struct	s_cam
@@ -77,4 +76,5 @@ void RotateCam(double angle1, double angle2, t_cam *c);
 void RotateSphere(double angle1, double angle2, t_sphere *s);
 double VectorModule(t_vector *t);
 void RotateAll(double angle1, double angle2, t_cam *c);
+void		makecolor(t_color *c, int R, int G, int B);
 #endif
