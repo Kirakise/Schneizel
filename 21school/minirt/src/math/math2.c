@@ -34,7 +34,7 @@ t_line		*makelinep(t_point *p1, t_point *p2)
 	return (l);
 }
 
-t_point		*getpointonline(t_line *l, int t)
+t_point		*getpointonline(t_line *l, double t)
 {
 	t_point	*p;
 

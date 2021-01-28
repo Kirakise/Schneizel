@@ -2,6 +2,7 @@
 # define MY_MATH_H
 #include <math.h>
 #define pi_num 3.1415926
+#define delta  0.001
 typedef struct	s_color
 {
 	int		R;
@@ -55,7 +56,8 @@ typedef struct	s_cam
 	struct s_cam *next;
 }				t_cam;
 
-t_point		*getpoint(t_line *l, int t);
+double trunc(double d);
+t_point		*getpointonline(t_line *l, double t);
 t_line		*makeline(t_point *p, t_vector *v);
 double		distance(t_point *t1, t_point *t2);
 t_result	*CheckPlane(t_line *l, t_plane *p);
@@ -77,4 +79,8 @@ void RotateSphere(double angle1, double angle2, t_sphere *s);
 double VectorModule(t_vector *t);
 void RotateAll(double angle1, double angle2, t_cam *c);
 void		makecolor(t_color *c, int R, int G, int B);
+int	EqPoint(t_point *p1, t_point *p2);
+int De(double d1, double d2);
+t_vector GetVectorOfLine(t_line *v);
+void AddLightColor(t_color *c, double light);
 #endif

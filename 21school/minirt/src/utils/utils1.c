@@ -13,3 +13,7 @@ void ft_putstr(char *s)
 		i++;
 	}
 }
+int foo()
+{
+	return (1);
+}

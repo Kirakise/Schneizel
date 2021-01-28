@@ -39,3 +39,9 @@ double VectorModule(t_vector *t)
 {
 	return (sqrt(t->x * t->x + t->y * t->y + t->z * t->z));
 }
+
+double trunc(double d)
+{
+	d = floor(d / delta) * delta;
+	return (d);
+}

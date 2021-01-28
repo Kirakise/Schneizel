@@ -40,7 +40,7 @@ void get_image(t_cam *c)
 		{
 			p.x = (w - g_data.Swidth / 2.0) * 1 / g_data.Swidth;
 			p.y = (g_data.Sheight / 2.0 - h) * 1 / g_data.Sheight;
-			p.z = 1;
+			p.z = c->v.z;
 			l = makelinep(&(c->p), &p);
 			mlx_put_color(CheckObjects(l), w, h);
 			free(l);
