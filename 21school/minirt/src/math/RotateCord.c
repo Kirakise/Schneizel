@@ -4,11 +4,13 @@ void RotateCord(t_cam *c)
 {
 	double angle1;
 	double angle2;
+	int tmp;
 
+	tmp = 1;
 	if (c->v.z < 0)
-		RotateAll(pi_num, 0, c);
-	angle1 = c->v.y != 0 ? atan(c->v.y / c->v.z) : 0;
-	angle2 = c->v.x != 0 ? asin((c->v.x) / VectorModule(&(c->v))) : 0;
+		tmp = -1;
+	angle1 = c->v.y != 0 ? tmp * atan(c->v.y / c->v.z) : 0;
+	angle2 = c->v.x != 0 ? tmp * asin((c->v.x) / VectorModule(&(c->v))) : 0;
 	RotateAll(angle1, angle2, c);
 }
 

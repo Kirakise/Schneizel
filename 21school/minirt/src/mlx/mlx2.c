@@ -7,7 +7,7 @@ int CheckObjects(t_line *l)
 	t_vector v;
 	double tmp;
 
-	makecolor(&color, 0, 0 ,0);
+	makecolor(&color, 148, 0 ,211);
 	res = 20000000;
 	o = g_data.objects->next;
 	while(o)
@@ -21,7 +21,7 @@ int CheckObjects(t_line *l)
 		o = o->next;
 	}
 	if (res < 20000000)
-		AddLight(&color, v, getpointonline(l, res));
+		AddLight(&color, v, getpointonline(l, res), GetVectorOfLine(l));
 	return (color_to_int(&color));
 }
 
@@ -44,7 +44,7 @@ int CheckInter(t_line *l, t_point *p)
 	return (0);
 }
 
-void	AddLight(t_color *c, t_vector v, t_point *p)
+void	AddLight(t_color *c, t_vector v, t_point *p, t_vector vv)
 {
 	t_light *l;
 	t_line	*tmp;
@@ -59,7 +59,10 @@ void	AddLight(t_color *c, t_vector v, t_point *p)
 		free(tmp);
 		tmp = makelinep(&(l->p), p);
 		if (CheckInter(tmp, p) && cos(GetAngle(&v, &vtmp)) > 0)
+		{
 			result += cos(GetAngle(&v, &vtmp)) * l->brightness;
+			result += AddBligh(vv, ComputeReflectedVector(vtmp, v), l->brightness);
+		}
 		free(tmp);
 		l = l->next;
 	}
@@ -77,4 +80,10 @@ void AddLightColor(t_color *c, double light)
 		c->G = 255;
 	if(c->R > 255)
 		c->R = 255;
+	if (c->B < 0)
+		c->B = 0;
+	if (c->R < 0)
+		c->R = 0;
+	if (c->G < 0)
+		c->G = 0;
 }
