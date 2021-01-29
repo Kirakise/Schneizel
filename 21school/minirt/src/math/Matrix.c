@@ -27,8 +27,8 @@ void RotateYV(t_vector *v, double angle)
 	double x;
 	double z;
 
-	x = v->x * cos(angle) + v->z * sin(angle);
-	z = v->x * -sin(angle) + v->z * cos(angle);
+	x = v->x * cos(angle) + v->z * -sin(angle);
+	z = v->x * sin(angle) + v->z * cos(angle);
 	v->x = x;
 	v->z = z;
 }
@@ -38,8 +38,8 @@ void RotateZV(t_vector *v, double angle)
 	double x;
 	double y;
 
-	x = v->x * cos(angle) + v->y * -sin(angle);
-	y = v->x * sin(angle) + v->y * cos(angle);
+	x = v->x * cos(angle) + v->y * sin(angle);
+	y = v->x * -sin(angle) + v->y * cos(angle);
 	v->x = x;
 	v->y = y;
 }
