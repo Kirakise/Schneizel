@@ -13,4 +13,6 @@ void	AddLight(t_color *c, t_vector v, t_point *p, t_vector vv);
 int CheckInter(t_line *l, t_point *p);
 double	AddBligh(t_vector vv, t_vector vr, double brightness);
 t_vector ComputeReflectedVector(t_vector vl, t_vector vn);
+void CheckObjects2(t_line *l, t_obj *o, t_result *res);
+void CheckObjects3(t_line *l, t_obj *o, t_result *res);
 #endif

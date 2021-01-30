@@ -1,29 +1,5 @@
 #include "../../includes/ultimate.h"
-int CheckObjects(t_line *l)
-{
-	t_obj	*o;
-	double res;
-	t_color color;
-	t_vector v;
-	double tmp;
 
-	makecolor(&color, 0, 0, 0);
-	res = 20000000;
-	o = g_data.objects->next;
-	while(o)
-	{
-		if (o->type == 1 && !isnan(tmp = CheckSphere(l, o->obj))
-		 && tmp > 1 && De(tmp, res) == -1 && (res = tmp))
-		 {
-		 	v = GetVectorOfLine(makelinep(&((t_sphere *)o->obj)->center, getpointonline(l, res)));
-			color = ((t_sphere *)o->obj)->color;
-		 }
-		o = o->next;
-	}
-	if (res < 20000000)
-		AddLight(&color, v, getpointonline(l, res), GetVectorOfLine(l));
-	return (color_to_int(&color));
-}
 
 int CheckInter(t_line *l, t_point *p)
 {

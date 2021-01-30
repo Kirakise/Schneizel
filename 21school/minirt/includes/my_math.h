@@ -45,6 +45,7 @@ typedef struct	s_plane{
 
 typedef struct	s_result{
 	double		res;
+	t_vector	v;
 	t_color		color;
 }				t_result;
 
@@ -90,6 +91,7 @@ double		distance(t_point *t1, t_point *t2);
 double		CheckPlane(t_line *l, t_plane *p);
 double		CheckSphere(t_line *l, t_sphere *s);
 t_line		*makelinep(t_point *p1, t_point *p2);
+t_vector GetCylinderNorm(t_cylinder c, t_point p);
 void ChangeCords(t_cam *c);
 void RotateZV(t_vector *v, double angle);
 void RotateYV(t_vector *v, double angle);
@@ -112,7 +114,7 @@ t_vector GetVectorOfLine(t_line *v);
 void AddLightColor(t_color *c, double light);
 double CheckTriangle(t_line *l, t_triangle *t);
 double CheckSquare(t_line *l, t_square *s);
-double CheckSquare2(t_line *l, t_square *s, t_point p1, double res);
+double CheckSquare2(t_square *s, t_point p1, double res);
 double CheckCylinder(t_line *l, t_cylinder *c);
 double CheckCylinder2(t_line *l, t_cylinder *c);
 double CheckCylinder3(t_line *l, t_cylinder *c, double r1, double r2);
@@ -123,4 +125,5 @@ void RotateSquareInit2(t_square *s, double angle1, double angle2);
 void RotateCylinder(t_cylinder *c, double angle1, double angle2);
 void RotateLine(t_line *l, double angle1, double angle2);
 void RotateTriangle(t_triangle *t, double angle1, double angle2);
+void	Makepoint(t_point *p, double x, double y, double z);
 #endif

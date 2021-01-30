@@ -58,3 +58,17 @@ t_vector GetVectorFromPlane(t_plane p)
 	v.z = p.v.z;
 	return (v);
 }
+
+t_vector GetCylinderNorm(t_cylinder c, t_point p)
+{
+	t_line l;
+	t_point p2;
+	t_vector res;
+
+	p2.x = c.p.x;
+	p2.y = c.p.y;
+	p2.z = p.z;
+	l = *makelinep(&p2, &p);
+	res = GetVectorOfLine(&l);
+	return (res);
+}
