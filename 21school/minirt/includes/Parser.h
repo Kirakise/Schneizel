@@ -8,4 +8,8 @@ int ParseAmb(char *s);
 int ParseCam(char *s);
 int ParseLight(char *s);
 int ParseSphere(char *s);
+int ParsePlane(char *s);
+int ParseSquare(char *s);
+int ParseCylinder(char *s);
+int ParseTriangle(char *s);
 #endif

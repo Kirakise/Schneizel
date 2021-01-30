@@ -9,8 +9,8 @@ void mlx_start()
 
 int closewin(int keycode, t_mlx *mlx)
 {
-	keycode = 12;
-	mlx_destroy_window(mlx->mlx, mlx->win);
+	if (keycode == 53)
+		mlx_destroy_window(mlx->mlx, mlx->win);
 	return (1);
 }
 

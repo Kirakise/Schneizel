@@ -29,3 +29,10 @@ t_vector GetVectorOfLine(t_line *v)
 	t.z = v->zmul;
 	return (t);
 }
+
+void	Makepoint(t_point *p, double x, double y, double z)
+{
+	p->x = x;
+	p->y = y;
+	p->z = z;
+}

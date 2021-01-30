@@ -7,7 +7,7 @@ int CheckObjects(t_line *l)
 	t_vector v;
 	double tmp;
 
-	makecolor(&color, 148, 0 ,211);
+	makecolor(&color, 0, 0, 0);
 	res = 20000000;
 	o = g_data.objects->next;
 	while(o)
@@ -52,6 +52,7 @@ void	AddLight(t_color *c, t_vector v, t_point *p, t_vector vv)
 	double result;
 	result = g_data.alratio;
 	l = g_data.lights->next;
+	foo();
 	while (l)
 	{
 		tmp = makelinep(p, &(l->p));
@@ -71,9 +72,9 @@ void	AddLight(t_color *c, t_vector v, t_point *p, t_vector vv)
 
 void AddLightColor(t_color *c, double light)
 {
-	c->B *= light + 1;
-	c->G *= light + 1;
-	c->R *= light + 1;
+	c->B *= light;
+	c->G *= light;
+	c->R *= light;
 	if(c->B > 255)
 		c->B = 255;
 	if(c->G > 255)

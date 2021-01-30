@@ -18,21 +18,16 @@ double		CheckSphere(t_line *l, t_sphere *s)
 }
 
 
-t_result	*CheckPlane(t_line *l, t_plane *p)
+double		CheckPlane(t_line *l, t_plane *p)
 {
 	double		d;
-	t_result	*r;
+	double		r;
 	double		k1;
-	
-	r = malloc(sizeof(struct s_result));
+
 	d = p->v.x * p->p.x + p->v.y * p->p.y + p->v.z * p->p.z;
 	k1 = p->v.x * l->xmul + p->v.y * l->ymul + p->v.z * l->zmul;
-	if (k1 == 0)
-	{
-		return (r);
-	r->res = d - p->v.x * l->xadd - p->v.y * l->yadd - p->v.z * l->zadd;
-	}
-	return (r);
+	r = d - p->v.x * l->xadd - p->v.y * l->yadd - p->v.z * l->zadd;
+	return (r/k1);
 }
 
 double VectorModule(t_vector *t)

@@ -39,13 +39,13 @@ int parseline(char *s)
 		return(ParseLight(s + 1));
 	else if (s[0] == 's' && s[1] == 'p')
 		return(ParseSphere(s + 2));
-	/*if (s[0] == 'p')
+	if (s[0] == 'p')
 		return(ParsePlane(s));
 	if (s[0] == 's' && s[1] == 'q')
 		return(ParseSquare(s));
 	if (s[0] == 'c')
 		return(ParseCylinder(s));
 	if (s[0] == 't')
-		return(ParseTriangle(s));*/
+		return(ParseTriangle(s));
 	return (-1);
 }
