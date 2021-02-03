@@ -29,6 +29,8 @@ typedef struct	s_mlx
 
 typedef struct	s_data{
 	t_obj *objects;
+	t_cam *camcur;
+	t_obj *objcur;
 	t_cam *cams;
 	t_light *lights;
 	t_mlx	mlx;

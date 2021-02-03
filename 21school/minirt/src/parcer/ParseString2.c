@@ -13,7 +13,10 @@ int ParsePlane(char *s)
 	o = g_data.objects->next;
 	while (o->next)
 		o = o->next;
+	o->next = objconst();
+	o = o->next;
 	o->obj = p;
+	o->type = 2;
 	p->p.x = ft_atoi_double(&s);
 	p->p.y = ft_atoi_double(&s);
 	p->p.z = ft_atoi_double(&s);
@@ -37,7 +40,10 @@ int ParseSquare(char *s)
 	o = g_data.objects->next;
 	while (o->next)
 		o = o->next;
+	o->next = objconst();
+	o = o->next;
 	o->obj = sq;
+	o->type = 3;
 	sq->pc.x = ft_atoi_double(&s);
 	sq->pc.y = ft_atoi_double(&s);
 	sq->pc.z = ft_atoi_double(&s);
@@ -63,6 +69,9 @@ int ParseCylinder(char *s)
 	o = g_data.objects->next;
 	while (o->next)
 		o = o->next;
+	o->next = objconst();
+	o = o->next;
+	o->type = 4;
 	o->obj = c;
 	c->p.x = ft_atoi_double(&s);
 	c->p.y = ft_atoi_double(&s);
@@ -89,7 +98,10 @@ int ParseTriangle(char *s)
 	o = g_data.objects->next;
 	while (o->next)
 		o = o->next;
+	o->next = objconst();
+	o = o->next;
 	o->obj = t;
+	o->type = 5;
 	t->p1.x = ft_atoi_double(&s);
 	t->p1.y = ft_atoi_double(&s);
 	t->p1.z = ft_atoi_double(&s);

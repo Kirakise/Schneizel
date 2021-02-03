@@ -21,8 +21,5 @@ double	AddBligh(t_vector vv, t_vector vr, double brightness)
 	if (result <= 0)
 		return 0;
 	else
-	{
-		foo();
 		return result;
-	}
 }

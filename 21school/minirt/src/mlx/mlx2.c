@@ -4,18 +4,16 @@
 int CheckInter(t_line *l, t_point *p)
 {
 	t_obj *o;
-	double tmp;
 	double res;
 
 	o = g_data.objects->next;
-	res = 2000000000;
+	res = INFINITY;
 	while (o)
 	{
-		if (o->type == 1 && !isnan(tmp = CheckSphere(l, o->obj)) && tmp > 0 && De(tmp, res) == -1)
-			res = tmp;
+		CheckRes(&res, o, l);
 		o = o->next;
 	}
-	if (res < 2000000000 && EqPoint(p, getpointonline(l, res)))
+	if (EqPoint(p, getpointonline(l, res)))
 		return (1);
 	return (0);
 }
@@ -26,16 +24,16 @@ void	AddLight(t_color *c, t_vector v, t_point *p, t_vector vv)
 	t_line	*tmp;
 	t_vector vtmp;
 	double result;
+
 	result = g_data.alratio;
 	l = g_data.lights->next;
-	foo();
 	while (l)
 	{
 		tmp = makelinep(p, &(l->p));
 		vtmp = GetVectorOfLine(tmp);
 		free(tmp);
 		tmp = makelinep(&(l->p), p);
-		if (CheckInter(tmp, p) && cos(GetAngle(&v, &vtmp)) > 0)
+		if (CheckInter(tmp, p) && (cos(GetAngle(&v, &vtmp)) > 0))
 		{
 			result += cos(GetAngle(&v, &vtmp)) * l->brightness;
 			result += AddBligh(vv, ComputeReflectedVector(vtmp, v), l->brightness);

@@ -1,19 +1,6 @@
 #include "../../includes/ultimate.h"
 #include <mlx.h>
 
-void mlx_start()
-{
-	g_data.mlx.mlx = mlx_init();
-	g_data.mlx.win = mlx_new_window(g_data.mlx.mlx, g_data.Swidth, g_data.Sheight, "asd");
-}
-
-int closewin(int keycode, t_mlx *mlx)
-{
-	if (keycode == 53)
-		mlx_destroy_window(mlx->mlx, mlx->win);
-	return (1);
-}
-
 int	color_to_int(t_color *c)
 {
 	return ((c->R << 16) + (c->G << 8) + c->B);
@@ -32,7 +19,6 @@ void get_image(t_cam *c)
 	t_point p;
 
 	ChangeCords(c);
-	mlx_start();
 	h = 0;
 	while(h++ < g_data.Sheight && !(w = 0))
 	{

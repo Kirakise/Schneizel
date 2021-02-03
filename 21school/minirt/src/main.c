@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/03 18:30:37 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/03 18:31:38 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/ultimate.h"
 #include <stdio.h>
 
 t_data	g_data;
-int initialize()
+
+int	initialize(void)
 {
 	g_data.objects = objconst();
 	g_data.cams = camconst();
@@ -19,7 +32,7 @@ int initialize()
 	return (1);
 }
 
-int main(int args, char **argv)
+int	main(int args, char **argv)
 {
 	if (!initialize())
 		return (-1);
@@ -28,7 +41,8 @@ int main(int args, char **argv)
 		ft_putstr("Error with scene\n");
 		return (-1);
 	}
+	mlx_start();
 	get_image(g_data.cams->next);
-	mlx_hook(g_data.mlx.win, 2, 1L<<0, closewin, &(g_data.mlx));
+	mlx_hook(g_data.mlx.win, 2, 1L << 0, closewin, &(g_data.mlx));
 	mlx_loop(g_data.mlx.mlx);
 }

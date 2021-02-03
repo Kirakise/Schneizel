@@ -33,19 +33,19 @@ int parseline(char *s)
 		return(ParseRes(s + 1));
 	else if (s[0] == 'A')
 		return(ParseAmb(s + 1));
-	else if (s[0] == 'c')
+	else if (s[0] == 'c' && s[1] != 'y')
 		return(ParseCam(s + 1));
 	else if (s[0] == 'l')
 		return(ParseLight(s + 1));
 	else if (s[0] == 's' && s[1] == 'p')
 		return(ParseSphere(s + 2));
 	if (s[0] == 'p')
-		return(ParsePlane(s));
+		return(ParsePlane(s + 2));
 	if (s[0] == 's' && s[1] == 'q')
-		return(ParseSquare(s));
-	if (s[0] == 'c')
-		return(ParseCylinder(s));
+		return(ParseSquare(s + 2));
+	if (s[0] == 'c' && s[1] == 'y')
+		return(ParseCylinder(s + 2));
 	if (s[0] == 't')
-		return(ParseTriangle(s));
+		return(ParseTriangle(s + 2));
 	return (-1);
 }

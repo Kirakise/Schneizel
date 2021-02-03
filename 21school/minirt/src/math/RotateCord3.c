@@ -30,6 +30,12 @@ void RotateTriangle(t_triangle *t, double angle1, double angle2)
 	RotateYP(&(t->p2), angle2);
 	RotateXP(&(t->p3), angle1);
 	RotateYP(&(t->p3), angle2);
-	RotateXV(&(t->v), angle1);
-	RotateYV(&(t->v), angle2);
+}
+
+void RotatePlane(t_plane *p, double angle1, double angle2)
+{
+	RotateXP(&(p->p), angle1);
+	RotateYP(&(p->p), angle2);
+	RotateXV(&(p->v), angle1);
+	RotateYV(&(p->v), angle2);
 }

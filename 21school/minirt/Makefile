@@ -1,4 +1,4 @@
-SRCS = $(wildcard src/*.c) $(wildcard src/math/*.c) $(wildcard src/parcer/*.c) $(wildcard src/utils/*.c) $(wildcard src/constructors/*.c) $(wildcard src/mlx/*.c)
+SRCS = $(wildcard src/*.c) $(wildcard src/math/*.c) $(wildcard src/parcer/*.c) $(wildcard src/utils/*.c) $(wildcard src/constructors/*.c) $(wildcard src/mlx/*.c) $(wildcard src/controls/*.c)
 OBJS = $(SRCS:%.c=%.o)
 NAME = result
 CC = clang

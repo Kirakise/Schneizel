@@ -11,7 +11,7 @@ void RotateCord(t_cam *c)
 		tmp = -1;
 	angle1 = c->v.y != 0 ? tmp * atan(c->v.y / c->v.z) : 0;
 	angle2 = c->v.x != 0 ? tmp * asin((c->v.x) / VectorModule(&(c->v))) : 0;
-	RotateAll(angle1, angle2, c);
+	RotateAll(angle1, angle2);
 }
 
 void Rotatelights(double angle1, double angle2)
@@ -36,6 +36,14 @@ void Rotateobjects(double angle1, double angle2)
 	{
 		if (o->type == 1)
 			RotateSphere(angle1, angle2, o->obj);
+		else if (o->type == 2)
+			RotatePlane(o->obj, angle1, angle2);
+		else if (o->type == 3)
+			RotateSquare(o->obj, angle1, angle2);
+		else if (o->type == 4)
+			RotateCylinder(o->obj, angle1, angle2);
+		else if (o->type == 5)
+			RotateTriangle(o->obj, angle1, angle2);
 		o = o->next;
 	}
 }
