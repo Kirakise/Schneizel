@@ -31,16 +31,16 @@ void	get_image(t_cam *c)
 	t_point	p;
 	double	tmp;
 
-	tmp = g_data.sheight + g_data.swidth;
+	tmp = g_data.swidth > g_data.sheight ? g_data.swidth : g_data.sheight;
 	changecords(c);
 	h = 0;
 	while (h++ < g_data.sheight && !(w = 0))
 	{
 		while (w++ < g_data.swidth)
 		{
-			p.x = (w - g_data.swidth / 2.0) * 1 / g_data.swidth;
-			p.y = (g_data.sheight / 2.0 - h) * 1 / g_data.sheight;
-			p.z = c->v.z * (60 / c->fow);
+			p.x = (w - g_data.swidth / 2.0) / tmp;
+			p.y = (g_data.sheight / 2.0 - h) / tmp;
+			p.z = c->v.z * (180 / c->fow);
 			l = makelinep(&(c->p), &p);
 			mlx_put_color(checkobjects(&l), w, h);
 		}
