@@ -1,93 +1,105 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsestring1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:39:09 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:39:10 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 
-int ParseRes(char *s)
+int		parseres(char *s)
 {
-	if (g_data.Swidth > 0 || g_data.Sheight > 0)
+	if (g_data.swidth > 0 || g_data.sheight > 0)
 		return (-1);
-	g_data.Swidth = ft_atoi(&s);
-	g_data.Sheight = ft_atoi(&s);
-	if (g_data.Swidth < 1 || g_data.Sheight < 1)
+	g_data.swidth = ft_atoi(&s);
+	g_data.sheight = ft_atoi(&s);
+	if (g_data.swidth < 1 || g_data.sheight < 1)
 		return (-1);
+	if (g_data.swidth > 1920)
+		g_data.swidth = 1920;
+	if (g_data.sheight > 1080)
+		g_data.sheight = 1080;
 	return (1);
 }
 
-int ParseAmb(char *s)
+int		parseamb(char *s)
 {
-	if(g_data.alratio != -1 || g_data.alcolor.R != -1 ||
-		g_data.alcolor.G != -1 || g_data.alcolor.B != -1)
+	if (g_data.alratio != -1 || g_data.alcolor.r != -1 ||
+		g_data.alcolor.g != -1 || g_data.alcolor.b != -1)
 		return (-1);
 	g_data.alratio = ft_atoi_double(&s);
-	g_data.alcolor.R = ft_atoi(&s);
-	g_data.alcolor.G = ft_atoi(&s);
-	g_data.alcolor.B = ft_atoi(&s);
-	if (g_data.alratio < 0 || g_data.alratio > 1 || g_data.alcolor.R > 255 ||
-		g_data.alcolor.R < 0 || g_data.alcolor.G > 255 || g_data.alcolor.G < 0
-		|| g_data.alcolor.B > 255 || g_data.alcolor.B < 0)
+	g_data.alcolor.r = ft_atoi(&s);
+	g_data.alcolor.g = ft_atoi(&s);
+	g_data.alcolor.b = ft_atoi(&s);
+	if (g_data.alratio < 0 || g_data.alratio > 1 || g_data.alcolor.r > 255 ||
+		g_data.alcolor.r < 0 || g_data.alcolor.g > 255 || g_data.alcolor.g < 0
+		|| g_data.alcolor.b > 255 || g_data.alcolor.b < 0)
 		return (-1);
 	return (1);
 }
 
-int ParseCam(char *s)
+int		parsecam(char *s)
 {
 	t_cam	*c;
 
 	c = g_data.cams;
 	while (c->next)
 		c = c->next;
-	if(!(c->next = camconst()))
+	if (!(c->next = camconst()))
 		return (-1);
 	c = c->next;
-	c->p.x = ft_atoi_double(&s);
-	c->p.y = ft_atoi_double(&s);
-	c->p.z = ft_atoi_double(&s);
-	c->v.x = ft_atoi_double(&s);
-	c->v.y = ft_atoi_double(&s);
-	c->v.z = ft_atoi_double(&s);
+	readpoint(&c->p, &s);
+	readvector(&c->v, &s);
+	foo();
 	c->fow = ft_atoi(&s);
+	if (vectormodule(&c->v) != 1)
+		return (-1);
+	normvector(&c->v);
 	return (1);
 }
 
-int ParseLight(char *s)
+int		parselight(char *s)
 {
 	t_light *l;
 
 	l = g_data.lights;
 	while (l->next)
 		l = l->next;
-	if(!(l->next = lightconst()))
+	if (!(l->next = lightconst()))
 		return (-1);
 	l = l->next;
-	l->p.x = ft_atoi_double(&s);
-	l->p.y = ft_atoi_double(&s);
-	l->p.z = ft_atoi_double(&s);
+	readpoint(&l->p, &s);
 	l->brightness = ft_atoi_double(&s);
-	l->color.R = ft_atoi(&s);
-	l->color.G = ft_atoi(&s);
-	l->color.B = ft_atoi(&s);
+	l->color.r = ft_atoi(&s);
+	l->color.g = ft_atoi(&s);
+	l->color.b = ft_atoi(&s);
 	return (1);
 }
 
-int ParseSphere(char *s)
+int		parsesphere(char *s)
 {
-	t_obj *o;
-	t_sphere *s1;
+	t_obj		*o;
+	t_sphere	*s1;
 
 	o = g_data.objects;
 	while (o->next)
 		o = o->next;
-	if(!(o->next = objconst()))
+	if (!(o->next = objconst()))
 		return (-1);
 	o = o->next;
 	o->type = 1;
-	if(!(o->obj = malloc(sizeof(struct s_sphere))))
+	if (!(o->obj = malloc(sizeof(struct s_sphere))))
 		return (-1);
 	s1 = o->obj;
-	s1->center.x = ft_atoi_double(&s);
-	s1->center.y = ft_atoi_double(&s);
-	s1->center.z = ft_atoi_double(&s);
+	readpoint(&s1->center, &s);
 	s1->radius = ft_atoi_double(&s) / 2;
-	s1->color.R = ft_atoi(&s);
-	s1->color.G = ft_atoi(&s);
-	s1->color.B = ft_atoi(&s);
+	s1->color.r = ft_atoi(&s);
+	s1->color.g = ft_atoi(&s);
+	s1->color.b = ft_atoi(&s);
 	return (1);
 }

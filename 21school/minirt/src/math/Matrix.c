@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:22:04 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:22:05 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 
-double GetAngle(t_vector *v1, t_vector *v2)
+double	getangle(t_vector *v1, t_vector *v2)
 {
 	double a1;
 	double a2;
@@ -8,10 +20,10 @@ double GetAngle(t_vector *v1, t_vector *v2)
 	a1 = v1->x * v2->x + v1->y * v2->y + v1->z * v2->z;
 	a2 = sqrt(v1->x * v1->x + v1->y * v1->y + v1->z * v1->z)
 		* sqrt(v2->x * v2->x + v2->y * v2->y + v2->z * v2->z);
-	return (acos(a1/a2));	
+	return (acos(a1 / a2));
 }
 
-void RotateXV(t_vector *v, double angle)
+void	rotatexv(t_vector *v, double angle)
 {
 	double y;
 	double z;
@@ -22,7 +34,7 @@ void RotateXV(t_vector *v, double angle)
 	v->z = z;
 }
 
-void RotateYV(t_vector *v, double angle)
+void	rotateyv(t_vector *v, double angle)
 {
 	double x;
 	double z;
@@ -33,7 +45,7 @@ void RotateYV(t_vector *v, double angle)
 	v->z = z;
 }
 
-void RotateZV(t_vector *v, double angle)
+void	rotatezv(t_vector *v, double angle)
 {
 	double x;
 	double y;

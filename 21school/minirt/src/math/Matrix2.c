@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix2.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:22:17 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:22:27 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 
-void RotateXP(t_point *v, double angle)
+void	rotatexp(t_point *v, double angle)
 {
 	double y;
 	double z;
@@ -11,7 +23,7 @@ void RotateXP(t_point *v, double angle)
 	v->z = z;
 }
 
-void RotateYP(t_point *v, double angle)
+void	rotateyp(t_point *v, double angle)
 {
 	double x;
 	double z;
@@ -22,7 +34,7 @@ void RotateYP(t_point *v, double angle)
 	v->z = z;
 }
 
-void RotateZP(t_point *v, double angle)
+void	rotatezp(t_point *v, double angle)
 {
 	double x;
 	double y;

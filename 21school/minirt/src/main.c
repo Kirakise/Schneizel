@@ -23,12 +23,12 @@ int	initialize(void)
 	if (!g_data.objects || !g_data.cams || !g_data.lights)
 		return (0);
 	g_data.alratio = -1;
-	g_data.alcolor.R = -1;
-	g_data.alcolor.G = -1;
-	g_data.alcolor.B = -1;
-	g_data.Swidth = -1;
-	g_data.Sheight = -1;
-	g_data.Save = 0;
+	g_data.alcolor.r = -1;
+	g_data.alcolor.g = -1;
+	g_data.alcolor.b = -1;
+	g_data.swidth = -1;
+	g_data.sheight = -1;
+	g_data.save = 0;
 	return (1);
 }
 
@@ -42,7 +42,9 @@ int	main(int args, char **argv)
 		return (-1);
 	}
 	mlx_start();
+	g_data.camcur = g_data.cams->next;
 	get_image(g_data.cams->next);
 	mlx_hook(g_data.mlx.win, 2, 1L << 0, closewin, &(g_data.mlx));
+	mlx_hook(g_data.mlx.win, 17, 0L, closewin2, 0);
 	mlx_loop(g_data.mlx.mlx);
 }

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsestring2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:40:21 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:40:22 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 #include <fcntl.h>
 #include <stdio.h>
 
-int ParsePlane(char *s)
+int		parseplane(char *s)
 {
-	t_plane *p;
+	t_plane	*p;
 	t_obj	*o;
 
 	p = malloc(sizeof(struct s_plane));
@@ -17,22 +29,21 @@ int ParsePlane(char *s)
 	o = o->next;
 	o->obj = p;
 	o->type = 2;
-	p->p.x = ft_atoi_double(&s);
-	p->p.y = ft_atoi_double(&s);
-	p->p.z = ft_atoi_double(&s);
-	p->v.x = ft_atoi_double(&s);
-	p->v.y = ft_atoi_double(&s);
-	p->v.z = ft_atoi_double(&s);
-	p->color.R = ft_atoi(&s);
-	p->color.G = ft_atoi(&s);
-	p->color.B = ft_atoi(&s);
+	readpoint(&p->p, &s);
+	readvector(&p->v, &s);
+	p->color.r = ft_atoi(&s);
+	p->color.g = ft_atoi(&s);
+	p->color.b = ft_atoi(&s);
+	if (vectormodule(&p->v) != 1)
+		return (-1);
+	normvector(&p->v);
 	return (1);
 }
 
-int ParseSquare(char *s)
+int		parsesquare(char *s)
 {
-	t_square *sq;
-	t_obj *o;
+	t_square	*sq;
+	t_obj		*o;
 
 	sq = malloc(sizeof(struct s_square));
 	if (!sq)
@@ -44,24 +55,23 @@ int ParseSquare(char *s)
 	o = o->next;
 	o->obj = sq;
 	o->type = 3;
-	sq->pc.x = ft_atoi_double(&s);
-	sq->pc.y = ft_atoi_double(&s);
-	sq->pc.z = ft_atoi_double(&s);
-	sq->v.x = ft_atoi_double(&s);
-	sq->v.y = ft_atoi_double(&s);
-	sq->v.z = ft_atoi_double(&s);
+	readpoint(&sq->pc, &s);
+	readvector(&sq->v, &s);
+	if (vectormodule(&sq->v) != 1)
+		return (-1);
+	normvector(&sq->v);
 	sq->side = ft_atoi_double(&s);
-	sq->color.R = ft_atoi(&s);
-	sq->color.G = ft_atoi(&s);
-	sq->color.B = ft_atoi(&s);
-	RotateSquareInit(sq);
+	sq->color.r = ft_atoi(&s);
+	sq->color.g = ft_atoi(&s);
+	sq->color.b = ft_atoi(&s);
+	rotatesquareinit(sq);
 	return (1);
 }
 
-int ParseCylinder(char *s)
+int		parsecylinder(char *s)
 {
-	t_cylinder *c;
-	t_obj *o;
+	t_cylinder	*c;
+	t_obj		*o;
 
 	c = malloc(sizeof(struct s_cylinder));
 	if (!c)
@@ -73,24 +83,23 @@ int ParseCylinder(char *s)
 	o = o->next;
 	o->type = 4;
 	o->obj = c;
-	c->p.x = ft_atoi_double(&s);
-	c->p.y = ft_atoi_double(&s);
-	c->p.z = ft_atoi_double(&s);
-	c->v.x = ft_atoi_double(&s);
-	c->v.y = ft_atoi_double(&s);
-	c->v.z = ft_atoi_double(&s);
+	readpoint(&c->p, &s);
+	readvector(&c->v, &s);
+	if (vectormodule(&c->v) != 1)
+		return (-1);
+	normvector(&c->v);
 	c->radius = ft_atoi_double(&s) / 2;
 	c->height = ft_atoi_double(&s);
-	c->color.R = ft_atoi(&s);
-	c->color.G = ft_atoi(&s);
-	c->color.B = ft_atoi(&s);
+	c->color.r = ft_atoi(&s);
+	c->color.g = ft_atoi(&s);
+	c->color.b = ft_atoi(&s);
 	return (1);
 }
 
-int ParseTriangle(char *s)
+int		parsetriangle(char *s)
 {
-	t_triangle *t;
-	t_obj *o;
+	t_triangle	*t;
+	t_obj		*o;
 
 	t = malloc(sizeof(struct s_triangle));
 	if (!t)
@@ -102,17 +111,11 @@ int ParseTriangle(char *s)
 	o = o->next;
 	o->obj = t;
 	o->type = 5;
-	t->p1.x = ft_atoi_double(&s);
-	t->p1.y = ft_atoi_double(&s);
-	t->p1.z = ft_atoi_double(&s);
-	t->p2.x = ft_atoi_double(&s);
-	t->p2.y = ft_atoi_double(&s);
-	t->p2.z = ft_atoi_double(&s);
-	t->p3.x = ft_atoi_double(&s);
-	t->p3.y = ft_atoi_double(&s);
-	t->p3.z = ft_atoi_double(&s);
-	t->color.R = ft_atoi(&s);
-	t->color.G = ft_atoi(&s);
-	t->color.B = ft_atoi(&s);
+	readpoint(&t->p1, &s);
+	readpoint(&t->p2, &s);
+	readpoint(&t->p3, &s);
+	t->color.r = ft_atoi(&s);
+	t->color.g = ft_atoi(&s);
+	t->color.b = ft_atoi(&s);
 	return (1);
 }

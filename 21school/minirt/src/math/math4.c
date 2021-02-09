@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   math4.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:10:36 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:13:05 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 
-t_plane GetPlane(t_point p1, t_point p2, t_point p3)
+t_plane		getplane(t_point p1, t_point p2, t_point p3)
 {
 	t_plane p;
 
@@ -11,26 +23,31 @@ t_plane GetPlane(t_point p1, t_point p2, t_point p3)
 	return (p);
 }
 
-double CheckTriangle(t_line *l, t_triangle *t)
+double		checktriangle(t_line *l, t_triangle *t)
 {
 	t_plane p;
 	double	res;
 	t_point p1;
 
 	res = NAN;
-	p = GetPlane(t->p1, t->p2, t->p3);
+	p = getplane(t->p1, t->p2, t->p3);
 	t->v = p.v;
-	res = CheckPlane(l, &p);
+	res = checkplane(l, &p);
 	if (isnan(res))
 		return (NAN);
-	p1 = *getpointonline(l, res);
-	if ((t->p1.x - p1.x) * (t->p2.y - t->p1.y) - (t->p2.x - t->p1.x) * (t->p1.y - p1.y) >= 0 &&
-		(t->p2.x - p1.x) * (t->p3.y - t->p2.y) - (t->p3.x - t->p2.x) * (t->p2.y - p1.y) >= 0 &&
-		(t->p3.x - p1.x) * (t->p1.y - t->p3.y) - (t->p1.x - t->p3.x) * (t->p3.y - p1.y) >= 0)
-		return (res);
-	if ((t->p1.x - p1.x) * (t->p2.y - t->p1.y) - (t->p2.x - t->p1.x) * (t->p1.y - p1.y) <= 0 &&
-		(t->p2.x - p1.x) * (t->p3.y - t->p2.y) - (t->p3.x - t->p2.x) * (t->p2.y - p1.y) <= 0 &&
-		(t->p3.x - p1.x) * (t->p1.y - t->p3.y) - (t->p1.x - t->p3.x) * (t->p3.y - p1.y) <= 0)
+	p1 = getpointonline(l, res);
+	if (((t->p1.x - p1.x) * (t->p2.y - t->p1.y) -
+			(t->p2.x - t->p1.x) * (t->p1.y - p1.y) >= 0 &&
+		(t->p2.x - p1.x) * (t->p3.y - t->p2.y) -
+		(t->p3.x - t->p2.x) * (t->p2.y - p1.y) >= 0 &&
+		(t->p3.x - p1.x) * (t->p1.y - t->p3.y) -
+		(t->p1.x - t->p3.x) * (t->p3.y - p1.y) >= 0)
+	|| ((t->p1.x - p1.x) * (t->p2.y - t->p1.y) -
+			(t->p2.x - t->p1.x) * (t->p1.y - p1.y) <= 0 &&
+		(t->p2.x - p1.x) * (t->p3.y - t->p2.y) -
+		(t->p3.x - t->p2.x) * (t->p2.y - p1.y) <= 0 &&
+		(t->p3.x - p1.x) * (t->p1.y - t->p3.y) -
+		(t->p1.x - t->p3.x) * (t->p3.y - p1.y) <= 0))
 		return (res);
 	return (NAN);
 }

@@ -1,33 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotatecord.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/09 18:23:23 by rcaraway          #+#    #+#             */
+/*   Updated: 2021/02/09 18:23:28 by rcaraway         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/ultimate.h"
 
-void RotateCord(t_cam *c)
+void	rotatecord(t_cam *c)
 {
-	double angle1;
-	double angle2;
-	int tmp;
+	double	angle1;
+	double	angle2;
+	int		tmp;
 
 	tmp = 1;
 	if (c->v.z < 0)
 		tmp = -1;
 	angle1 = c->v.y != 0 ? tmp * atan(c->v.y / c->v.z) : 0;
-	angle2 = c->v.x != 0 ? tmp * asin((c->v.x) / VectorModule(&(c->v))) : 0;
-	RotateAll(angle1, angle2);
+	angle2 = c->v.x != 0 ? tmp * asin((c->v.x) / vectormodule(&(c->v))) : 0;
+	rotateall(angle1, angle2);
 }
 
-void Rotatelights(double angle1, double angle2)
+void	rotatelights(double angle1, double angle2)
 {
 	t_light *l;
 
 	l = g_data.lights->next;
 	while (l)
 	{
-		RotateXP(&(l->p), angle1);
-		RotateYP(&(l->p), angle2);
+		rotatexp(&(l->p), angle1);
+		rotateyp(&(l->p), angle2);
 		l = l->next;
 	}
 }
 
-void Rotateobjects(double angle1, double angle2)
+void	rotateobjects(double angle1, double angle2)
 {
 	t_obj *o;
 
@@ -35,29 +47,29 @@ void Rotateobjects(double angle1, double angle2)
 	while (o)
 	{
 		if (o->type == 1)
-			RotateSphere(angle1, angle2, o->obj);
+			rotatesphere(angle1, angle2, o->obj);
 		else if (o->type == 2)
-			RotatePlane(o->obj, angle1, angle2);
+			rotateplane(o->obj, angle1, angle2);
 		else if (o->type == 3)
-			RotateSquare(o->obj, angle1, angle2);
+			rotatesquare(o->obj, angle1, angle2);
 		else if (o->type == 4)
-			RotateCylinder(o->obj, angle1, angle2);
+			rotatecylinder(o->obj, angle1, angle2);
 		else if (o->type == 5)
-			RotateTriangle(o->obj, angle1, angle2);
+			rotatetriangle(o->obj, angle1, angle2);
 		o = o->next;
 	}
 }
 
-void RotateCam(double angle1, double angle2, t_cam *c)
+void	rotatecam(double angle1, double angle2, t_cam *c)
 {
-	RotateXP(&(c->p), angle1);
-	RotateYP(&(c->p), angle2);
-	RotateXV(&(c->v), angle1);
-	RotateYV(&(c->v), angle2);
+	rotatexp(&(c->p), angle1);
+	rotateyp(&(c->p), angle2);
+	rotatexv(&(c->v), angle1);
+	rotateyv(&(c->v), angle2);
 }
 
-void RotateSphere(double angle1, double angle2, t_sphere *s)
+void	rotatesphere(double angle1, double angle2, t_sphere *s)
 {
-	RotateXP(&(s->center), angle1);
-	RotateYP(&(s->center), angle2);
+	rotatexp(&(s->center), angle1);
+	rotateyp(&(s->center), angle2);
 }
