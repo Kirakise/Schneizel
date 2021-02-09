@@ -36,4 +36,6 @@ void				checkres(double *res, t_obj *o, t_line *l);
 void				control2(int keycode);
 void				resizeobj(t_obj *o, double d);
 void				rotateobj(t_obj *o, double angle);
+void				addcres(t_cres *c, t_color co, double brightness);
+void				initcres(t_cres *c, t_color co, double bright);
 #endif

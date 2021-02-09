@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:35:15 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/09 18:35:59 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/09 21:48:23 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,18 @@ void	checkres(double *res, t_obj *o, t_line *l)
 	else if (o->type == 5 && !isnan(tmp = checktriangle(l, o->obj))
 			&& tmp > 0 && myequal(tmp, *res) == -1)
 		*res = tmp;
+}
+
+void	initcres(t_cres *c, t_color co, double bright)
+{
+	c->rres = bright * co.r / 255;
+	c->bres = bright * co.b / 255;
+	c->gres = bright * co.g / 255;
+}
+
+void	addcres(t_cres *c, t_color co, double brightness)
+{
+	c->rres += brightness * co.r / 255;
+	c->bres += brightness * co.b / 255;
+	c->gres += brightness * co.g / 255;
 }

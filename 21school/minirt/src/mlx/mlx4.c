@@ -17,7 +17,9 @@ int		checkobjects(t_line *l)
 	t_obj		*o;
 	t_result	res;
 	t_point		p;
+	t_cres		c;
 
+	initcres(&c, g_data.alcolor, g_data.alratio);
 	makecolor(&res.color, 0, 0, 0);
 	res.res = INFINITY;
 	o = g_data.objects->next;
@@ -33,7 +35,7 @@ int		checkobjects(t_line *l)
 		addlight(&res.color, res.v, &p, getvectorofline(l));
 	}
 	else
-		addlightcolor(&res.color, g_data.alratio);
+		addlightcolor(&res.color, c);
 	return (color_to_int(&res.color));
 }
 

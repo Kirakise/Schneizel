@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:28:31 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/09 18:28:40 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/09 21:48:42 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	addlight(t_color *c, t_vector v, t_point *p, t_vector vv)
 	t_light		*l;
 	t_line		tmp;
 	t_vector	vtmp;
-	double		result;
+	t_cres		result;
 
-	result = g_data.alratio;
+	initcres(&result, g_data.alcolor, g_data.alratio);
 	l = g_data.lights->next;
 	while (l)
 	{
@@ -47,19 +47,21 @@ void	addlight(t_color *c, t_vector v, t_point *p, t_vector vv)
 		tmp = makelinep(&(l->p), p);
 		if (checkinter(&tmp, p) && (cos(getangle(&v, &vtmp)) > 0))
 		{
-			result += cos(getangle(&v, &vtmp)) * l->brightness;
-			result += addblight(vv, computereflected(vtmp, v), l->brightness);
+			addcres(&result, l->color, cos(getangle(&v, &vtmp))
+					* l->brightness);
+			addcres(&result, l->color, addblight(vv, computereflected(vtmp, v),
+			l->brightness));
 		}
 		l = l->next;
 	}
 	addlightcolor(c, result);
 }
 
-void	addlightcolor(t_color *c, double light)
+void	addlightcolor(t_color *c, t_cres light)
 {
-	c->b *= light;
-	c->g *= light;
-	c->r *= light;
+	c->b *= light.bres;
+	c->g *= light.gres;
+	c->r *= light.rres;
 	if (c->b > 255)
 		c->b = 255;
 	if (c->g > 255)

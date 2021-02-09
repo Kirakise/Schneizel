@@ -97,6 +97,13 @@ typedef struct		s_cylinder{
 	t_color			color;
 }					t_cylinder;
 
+typedef struct		s_cres
+{
+	double			rres;
+	double			gres;
+	double			bres;
+}					t_cres;
+
 double				trunc(double d);
 t_point				getpointonline(t_line *l, double t);
 t_line				makeline(t_point *p, t_vector *v);
@@ -126,7 +133,7 @@ void				makecolor(t_color *c, int r, int g, int b);
 int					eqpoint(t_point *p1, t_point *p2);
 int					myequal(double d1, double d2);
 t_vector			getvectorofline(t_line *v);
-void				addlightcolor(t_color *c, double light);
+void				addlightcolor(t_color *c, t_cres light);
 double				checktriangle(t_line *l, t_triangle *t);
 double				checksquare(t_line *l, t_square *s);
 double				checksquare2(t_square *s, t_point p1, double res);
