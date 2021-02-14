@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 18:30:37 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/03 18:31:38 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/14 17:55:57 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,25 @@ int	initialize(void)
 	return (1);
 }
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	while (*s1)
+	{
+		if (*s1 != *s2)
+			return (*s2 - *s1);
+		s2++;
+		s1++;
+	}
+	return (0);
+}
+
 int	main(int args, char **argv)
 {
 	if (!initialize())
 		return (-1);
-	if (args > 3 || parsefile(argv[1]) == -1 || args <= 1)
+	if (!ft_strcmp(argv[1], "--save"))
+		g_data.save = 1;
+	if (args > 3 || parsefile(argv[1 + g_data.save]) == -1 || args <= 1)
 	{
 		ft_putstr("Error with scene\n");
 		return (-1);
@@ -44,6 +58,8 @@ int	main(int args, char **argv)
 	mlx_start();
 	g_data.camcur = g_data.cams->next;
 	get_image(g_data.cams->next);
+	if (g_data.save)
+		return (0);
 	mlx_hook(g_data.mlx.win, 2, 1L << 0, closewin, &(g_data.mlx));
 	mlx_hook(g_data.mlx.win, 17, 0L, closewin2, 0);
 	mlx_loop(g_data.mlx.mlx);

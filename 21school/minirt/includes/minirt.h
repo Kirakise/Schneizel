@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:51:25 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/09 18:51:38 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/14 17:55:16 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,15 @@ typedef struct		s_data{
 	int				swidth;
 	int				sheight;
 	int				save;
+	int				tmp;
 }					t_data;
+
+typedef struct		s_image{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_image;
 int					closewin2(int a);
 #endif
