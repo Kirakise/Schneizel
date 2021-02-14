@@ -23,4 +23,5 @@ void	cleanall2();
 void	cleanall3();
 int		create_bmp_image(t_image img, char *file_name);
 void	*ft_calloc(int size1, int size2);
+int		checkcolor(t_color c);
 #endif

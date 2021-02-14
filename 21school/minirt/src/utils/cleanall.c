@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:44:35 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/09 18:44:36 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/14 18:32:32 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,12 @@ void	cleanall3(void)
 		free(g_data.mlx.mlx);
 	if (g_data.mlx.win)
 		free(g_data.mlx.win);
+}
+
+int		checkcolor(t_color c)
+{
+	if (c.b > 255 || c.b < 0 || c.r > 255 || c.r < 0 ||
+	c.g > 255 || c.g < 0)
+		return (-1);
+	return (0);
 }

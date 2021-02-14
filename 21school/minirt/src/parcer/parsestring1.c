@@ -36,9 +36,8 @@ int		parseamb(char *s)
 	g_data.alcolor.r = ft_atoi(&s);
 	g_data.alcolor.g = ft_atoi(&s);
 	g_data.alcolor.b = ft_atoi(&s);
-	if (g_data.alratio < 0 || g_data.alratio > 1 || g_data.alcolor.r > 255 ||
-		g_data.alcolor.r < 0 || g_data.alcolor.g > 255 || g_data.alcolor.g < 0
-		|| g_data.alcolor.b > 255 || g_data.alcolor.b < 0)
+	if (g_data.alratio < 0 || g_data.alratio > 1 ||
+	checkcolor(g_data.alcolor))
 		return (-1);
 	return (1);
 }
@@ -57,6 +56,8 @@ int		parsecam(char *s)
 	readvector(&c->v, &s);
 	foo();
 	c->fow = ft_atoi(&s);
+	if (c->fow >= 180 || c->fow < 1)
+		return (-1);
 	if (vectormodule(&c->v) != 1)
 		return (-1);
 	normvector(&c->v);
@@ -75,9 +76,10 @@ int		parselight(char *s)
 	l = l->next;
 	readpoint(&l->p, &s);
 	l->brightness = ft_atoi_double(&s);
-	l->color.r = ft_atoi(&s);
-	l->color.g = ft_atoi(&s);
-	l->color.b = ft_atoi(&s);
+	readcolor(&l->color, &s);
+	if (l->brightness < 0 || l->brightness > 1 ||
+	checkcolor(l->color))
+		return (-1);
 	return (1);
 }
 
@@ -98,8 +100,8 @@ int		parsesphere(char *s)
 	s1 = o->obj;
 	readpoint(&s1->center, &s);
 	s1->radius = ft_atoi_double(&s) / 2;
-	s1->color.r = ft_atoi(&s);
-	s1->color.g = ft_atoi(&s);
-	s1->color.b = ft_atoi(&s);
+	readcolor(&s1->color, &s);
+	if (checkcolor(s1->color) || s1->radius <= 0)
+		return (-1);
 	return (1);
 }

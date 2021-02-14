@@ -6,7 +6,7 @@
 /*   By: rcaraway <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 18:37:36 by rcaraway          #+#    #+#             */
-/*   Updated: 2021/02/09 18:37:37 by rcaraway         ###   ########.fr       */
+/*   Updated: 2021/02/14 18:32:04 by rcaraway         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,11 @@ void	readvector(t_vector *p, char **s)
 	p->x = ft_atoi_double(s);
 	p->y = ft_atoi_double(s);
 	p->z = ft_atoi_double(s);
+}
+
+void	readcolor(t_color *c, char **s)
+{
+	c->r = ft_atoi(s);
+	c->g = ft_atoi(s);
+	c->b = ft_atoi(s);
 }

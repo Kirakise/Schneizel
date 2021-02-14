@@ -22,7 +22,7 @@ int		parseplane(char *s)
 	p = malloc(sizeof(struct s_plane));
 	if (!p)
 		return (-1);
-	o = g_data.objects->next;
+	o = g_data.objects;
 	while (o->next)
 		o = o->next;
 	o->next = objconst();
@@ -34,7 +34,7 @@ int		parseplane(char *s)
 	p->color.r = ft_atoi(&s);
 	p->color.g = ft_atoi(&s);
 	p->color.b = ft_atoi(&s);
-	if (vectormodule(&p->v) != 1)
+	if (vectormodule(&p->v) != 1 || checkcolor(p->color))
 		return (-1);
 	normvector(&p->v);
 	return (1);
@@ -48,7 +48,7 @@ int		parsesquare(char *s)
 	sq = malloc(sizeof(struct s_square));
 	if (!sq)
 		return (-1);
-	o = g_data.objects->next;
+	o = g_data.objects;
 	while (o->next)
 		o = o->next;
 	o->next = objconst();
@@ -61,9 +61,9 @@ int		parsesquare(char *s)
 		return (-1);
 	normvector(&sq->v);
 	sq->side = ft_atoi_double(&s);
-	sq->color.r = ft_atoi(&s);
-	sq->color.g = ft_atoi(&s);
-	sq->color.b = ft_atoi(&s);
+	readcolor(&sq->color, &s);
+	if (checkcolor(sq->color) || sq->side <= 0)
+		return (-1);
 	rotatesquareinit(sq);
 	return (1);
 }
@@ -76,7 +76,7 @@ int		parsecylinder(char *s)
 	c = malloc(sizeof(struct s_cylinder));
 	if (!c)
 		return (-1);
-	o = g_data.objects->next;
+	o = g_data.objects;
 	while (o->next)
 		o = o->next;
 	o->next = objconst();
@@ -90,9 +90,9 @@ int		parsecylinder(char *s)
 	normvector(&c->v);
 	c->radius = ft_atoi_double(&s) / 2;
 	c->height = ft_atoi_double(&s);
-	c->color.r = ft_atoi(&s);
-	c->color.g = ft_atoi(&s);
-	c->color.b = ft_atoi(&s);
+	readcolor(&c->color, &s);
+	if (checkcolor(c->color) || c->height <= 0 || c->radius <= 0)
+		return (-1);
 	return (1);
 }
 
@@ -104,7 +104,7 @@ int		parsetriangle(char *s)
 	t = malloc(sizeof(struct s_triangle));
 	if (!t)
 		return (-1);
-	o = g_data.objects->next;
+	o = g_data.objects;
 	while (o->next)
 		o = o->next;
 	o->next = objconst();
@@ -114,8 +114,8 @@ int		parsetriangle(char *s)
 	readpoint(&t->p1, &s);
 	readpoint(&t->p2, &s);
 	readpoint(&t->p3, &s);
-	t->color.r = ft_atoi(&s);
-	t->color.g = ft_atoi(&s);
-	t->color.b = ft_atoi(&s);
+	readcolor(&t->color, &s);
+	if (checkcolor(t->color))
+		return (-1);
 	return (1);
 }

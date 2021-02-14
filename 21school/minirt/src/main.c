@@ -50,7 +50,8 @@ int	main(int args, char **argv)
 		return (-1);
 	if (!ft_strcmp(argv[1], "--save"))
 		g_data.save = 1;
-	if (args > 3 || parsefile(argv[1 + g_data.save]) == -1 || args <= 1)
+	if (args > 2 + g_data.save
+	|| parsefile(argv[1 + g_data.save]) == -1 || args <= 1)
 	{
 		ft_putstr("Error with scene\n");
 		return (-1);

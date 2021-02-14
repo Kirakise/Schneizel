@@ -26,5 +26,6 @@ int		parsecylinder(char *s);
 int		parsetriangle(char *s);
 void	readpoint(t_point *p, char **s);
 void	readvector(t_vector *p, char **s);
+void	readcolor(t_color *c, char **s);
 
 #endif
