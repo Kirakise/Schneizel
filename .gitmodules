@@ -1,0 +1,9 @@
+[submodule "21school/miniRT"]
+	path = 21school/miniRT
+	url = https://github.com/Kirakise/miniRT.git
+[submodule "21school/get_next_line"]
+	path = 21school/get_next_line
+	url = https://github.com/Kirakise/get_next_line.git
+[submodule "21school/printf"]
+	path = 21school/printf
+	url = https://github.com/Kirakise/printf.git
