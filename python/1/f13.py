@@ -1,6 +1,6 @@
 #! /usr/bin/python
 from math import *
-def f(x):
+def f13(x):
     res = 0
 
     for i in range(0, x + 1):
